@@ -10,7 +10,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class App extends Component {
   render() {
-    const { user, signOut, signInWithGoogle } = this.props;
+    const { user, signOut, signInWithGithub } = this.props;
 
     return (
       <div className="App">
@@ -21,7 +21,7 @@ class App extends Component {
           {user ? (
             <button onClick={signOut}>Sign out</button>
           ) : (
-            <button onClick={signInWithGoogle}>Sign in with Google</button>
+            <button onClick={signInWithGithub}>Sign in with Github</button>
           )}
         </header>
       </div>
@@ -32,7 +32,7 @@ class App extends Component {
 const firebaseAppAuth = firebaseApp.auth();
 
 const providers = {
-  googleProvider: new firebase.auth.GoogleAuthProvider()
+  githubProvider: new firebase.auth.GithubAuthProvider()
 };
 
 export default withFirebaseAuth({
