@@ -68,19 +68,7 @@
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
 
-body {
-  min-width: 1040px;
-  margin: 0;
-  padding: 0;
-  line-height: 24px;
-  color: #404040;
-  background-color: white;
-}
-
 .page-footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
   width: 100%;
   background-color: #f2f2f2;
   color: #c3c3c3;
@@ -91,6 +79,7 @@ body {
 .container {
   width: 1200px;
   margin: 0 auto;
+  background-color: #f2f2f2;
 }
 
 .footer-top {
@@ -122,7 +111,7 @@ body {
   display: flex;
   border-top: 1px solid #5e5e5e;
   padding-top: 50px;
-  margin-bottom: 50px;
+  padding-bottom: 50px;
 }
 
 .footer-menu {
@@ -159,6 +148,9 @@ body {
 @media only screen and (max-width: 1200px) {
   .footer-middle {
     padding-left: 30px;
+  }
+  .container {
+    width: initial;
   }
 }
 
