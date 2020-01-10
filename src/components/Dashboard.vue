@@ -13,6 +13,14 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.container {
+  min-height: 100vh;
+  background-color: aquamarine;
+}
+</style>
+
 <script>
 import firebase from "firebase";
 import { mapGetters } from "vuex";

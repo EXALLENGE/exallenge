@@ -146,6 +146,7 @@
 }
 
 @media only screen and (max-width: 1200px) {
+  .footer-top,
   .footer-middle {
     padding-left: 30px;
   }
