@@ -1,15 +1,25 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Dashboard</div>
-          <div class="card-body">
-            <div v-if="user.loggedIn" class="alert alert-success" role="alert">You are logged in!</div>
-            <button @click="cl">hello</button>
-          </div>
-        </div>
-      </div>
+    <vue-particles
+      color="#ffffff"
+      :particleOpacity="0.5"
+      :particlesNumber="140"
+      shapeType="circle"
+      :particleSize="3"
+      linesColor="#ffffff"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="4"
+      :hoverEffect="true"
+      hoverMode="push"
+      :clickEffect="true"
+      clickMode="push"
+    ></vue-particles>
+    <div class="main-info">
+      <div v-if="user.loggedIn">You are logged in!</div>
+      <button @click="cl">hello</button>
     </div>
   </div>
 </template>
@@ -17,7 +27,12 @@
 <style scoped>
 .container {
   min-height: 100vh;
-  background-color: aquamarine;
+  background-color: #30b58b;
+  position: relative;
+}
+.main-info {
+  position: absolute;
+  top: 0;
 }
 </style>
 
@@ -42,4 +57,6 @@ export default {
     }
   }
 };
+
+// Vue.loadScript("/particles.js");
 </script>
