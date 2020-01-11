@@ -18,8 +18,10 @@
       clickMode="push"
     ></vue-particles>
     <div class="main-info">
-      <div v-if="user.loggedIn">You are logged in!</div>
-      <button @click="cl">hello</button>
+      <p>
+        Бесплатные курсы по программированию
+        <span class="tmp"></span>
+      </p>
     </div>
   </div>
 </template>
@@ -33,6 +35,45 @@
 .main-info {
   position: absolute;
   top: 0;
+}
+.tmp {
+  color: red;
+}
+.tmp:after {
+  content: "";
+  animation: change 2s linear infinite;
+}
+@keyframes change {
+  0% {
+    content: "ipsum";
+  }
+  10% {
+    content: "dolor";
+  }
+  20% {
+    content: "sit";
+  }
+  30% {
+    content: "amet";
+  }
+  40% {
+    content: "consectetur";
+  }
+  50% {
+    content: "adipisicing";
+  }
+  60% {
+    content: "elit";
+  }
+  70% {
+    content: "Hic";
+  }
+  80% {
+    content: "atque";
+  }
+  90% {
+    content: "fuga";
+  }
 }
 </style>
 
