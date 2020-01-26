@@ -1,25 +1,9 @@
 <template>
   <div class="container">
-    <vue-particles
-      color="#ffffff"
-      :particleOpacity="0.5"
-      :particlesNumber="140"
-      shapeType="circle"
-      :particleSize="3"
-      linesColor="#ffffff"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="4"
-      :hoverEffect="true"
-      hoverMode="push"
-      :clickEffect="true"
-      clickMode="push"
-    ></vue-particles>
     <div class="main-info">
       <p>
         Бесплатные курсы по программированию
+        <br />
         <span class="tmp"></span>
       </p>
     </div>
@@ -28,51 +12,53 @@
 
 <style scoped>
 .container {
-  min-height: 100vh;
-  background-color: #30b58b;
+  height: 400px;
+  background: linear-gradient(
+      90deg,
+      rgba(48, 181, 139, 0.8) 0%,
+      rgba(48, 181, 139, 0.8) 100%
+    ),
+    url(../assets/promo-image.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   position: relative;
 }
 .main-info {
   position: absolute;
-  top: 0;
+  top: 20%;
+  left: 30%;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 45px;
+  line-height: 55px;
+  text-align: center;
 }
 .tmp {
-  color: red;
+  color: #ffffff;
 }
 .tmp:after {
   content: "";
-  animation: change 2s linear infinite;
+  animation: change 5s linear infinite;
 }
 @keyframes change {
   0% {
-    content: "ipsum";
-  }
-  10% {
-    content: "dolor";
+    content: "в Москве";
   }
   20% {
-    content: "sit";
-  }
-  30% {
-    content: "amet";
+    content: "в Санкт-Петербурге";
   }
   40% {
-    content: "consectetur";
-  }
-  50% {
-    content: "adipisicing";
+    content: "в Рязани";
   }
   60% {
-    content: "elit";
-  }
-  70% {
-    content: "Hic";
+    content: "в Краснодаре";
   }
   80% {
-    content: "atque";
+    content: "в Казани";
   }
-  90% {
-    content: "fuga";
+  100% {
+    content: "в онлайне";
   }
 }
 </style>
