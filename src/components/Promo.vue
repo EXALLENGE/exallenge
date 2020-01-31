@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="main-info">
-      <p>
+      <div>
         Бесплатные курсы по программированию
         <br />
         <span class="tmp"></span>
-      </p>
+      </div>
     </div>
   </div>
 </template>
@@ -22,24 +22,25 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
 }
 .main-info {
-  position: absolute;
-  top: 20%;
-  left: 30%;
   color: #ffffff;
   font-weight: bold;
   font-size: 45px;
   line-height: 55px;
   text-align: center;
 }
+
+.main-info div {
+  padding-top: 120px;
+}
+
 .tmp {
   color: #ffffff;
 }
 .tmp:after {
   content: "";
-  animation: change 5s linear infinite;
+  animation: change 7s linear infinite;
 }
 @keyframes change {
   0% {
@@ -61,29 +62,22 @@
     content: "в онлайне";
   }
 }
+
+@media only screen and (max-width: 1200px) {
+  .main-info {
+    font-size: 35px;
+    line-height: 45px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .main-info {
+    font-size: 25px;
+    line-height: 35px;
+  }
+}
 </style>
 
 <script>
-import firebase from "firebase";
-import { mapGetters } from "vuex";
-export default {
-  computed: {
-    // map `this.user` to `this.$store.getters.user`
-    ...mapGetters({
-      user: "user"
-    })
-  },
-  methods: {
-    cl() {
-      var user = firebase.auth().currentUser;
-
-      user.sendEmailVerification().then(function() {
-        // Email sent.
-        alert("email sent");
-      });
-    }
-  }
-};
-
-// Vue.loadScript("/particles.js");
+export default {};
 </script>

@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import Dashboard from "../components/Dashboard";
+import Main from "../components/Main";
 
 Vue.use(Router);
 
@@ -21,9 +21,9 @@ const router = new Router({
       component: Register
     },
     {
-      path: "/dashboard",
-      name: "Dashboard",
-      component: Dashboard
+      path: "/",
+      name: "Main",
+      component: Main
     }
   ]
 });
