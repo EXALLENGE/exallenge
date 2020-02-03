@@ -6,6 +6,7 @@
 
 <style scoped>
 div {
+  padding-top: 130px;
   min-height: 70vh;
 }
 </style>

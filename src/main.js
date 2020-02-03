@@ -7,7 +7,7 @@ import router from "./routes";
 
 Vue.config.productionTip = false;
 
-var configOptions = {
+let configOptions = {
   apiKey: "AIzaSyCPnRZJWX2Yr9FpXZjEhlzw66sgi4mMXtg",
   authDomain: "exallenge.firebaseapp.com",
   databaseURL: "https://exallenge.firebaseio.com",
