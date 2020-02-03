@@ -14,6 +14,15 @@
 </template>
 
 <style scoped>
+.section-title {
+  margin: 0;
+  margin-right: 180px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 45px;
+  line-height: 55px;
+  color: #707070;
+}
 .wrapper {
   width: 800px;
   margin: 0 auto;
@@ -129,6 +138,9 @@
   }
   .press-review p {
     padding-right: 0px;
+  }
+  .section-title {
+    margin-right: 0px;
   }
 }
 </style>

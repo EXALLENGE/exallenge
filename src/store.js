@@ -1,11 +1,17 @@
 import Vue from "vue";
 import Vuex from "vuex";
+
 Vue.use(Vuex);
+
 export default new Vuex.Store({
   state: {
     user: {
       loggedIn: false,
       data: null
+    },
+    modal: {
+      title: "Возникла ошибка.",
+      text: "Мы получили ваше сообщение и в ближайшее время ответим вам."
     }
   },
   getters: {
@@ -19,6 +25,11 @@ export default new Vuex.Store({
     },
     SET_USER(state, data) {
       state.user.data = data;
+    },
+
+    changeModalText(state, modalText) {
+      state.modal.title = modalText.title;
+      state.modal.text = modalText.text;
     }
   },
   actions: {
