@@ -2,9 +2,10 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import Courses from "../components/Courses";
+import CoursesPage from "../components/CoursesPage";
 import ReviewsPage from "../components/ReviewsPage";
 import FeedbackPage from "../components/FeedbackPage";
+import InDevelopment from "../components/InDevelopment";
 import Main from "../components/Main";
 
 Vue.use(Router);
@@ -15,7 +16,7 @@ const router = new Router({
   routes: [
     {
       path: "/login",
-      name: "login",
+      name: "Login",
       component: Login
     },
     {
@@ -30,8 +31,8 @@ const router = new Router({
     },
     {
       path: "/courses",
-      name: "Courses",
-      component: Courses
+      name: "CoursesPage",
+      component: CoursesPage
     },
     {
       path: "/reviews",
@@ -42,6 +43,11 @@ const router = new Router({
       path: "/feedback",
       name: "FeedbackPage",
       component: FeedbackPage
+    },
+    {
+      path: "/in-development",
+      name: "InDevelopment",
+      component: InDevelopment
     }
   ]
 });

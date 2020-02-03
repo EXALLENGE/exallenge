@@ -4,7 +4,7 @@
     <features></features>
     <PressReview></PressReview>
     <Reviews></Reviews>
-    <Popular></Popular>
+    <Courses></Courses>
     <Feedback></Feedback>
   </div>
 </template>
@@ -17,7 +17,7 @@ import Promo from "./Promo";
 import Features from "./Features";
 import PressReview from "./PressReview";
 import Reviews from "./Reviews";
-import Popular from "./Popular";
+import Courses from "./Courses";
 import Feedback from "./Feedback";
 
 export default {
@@ -26,7 +26,7 @@ export default {
     Features,
     PressReview,
     Reviews,
-    Popular,
+    Courses,
     Feedback
   }
 };

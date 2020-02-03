@@ -19,7 +19,7 @@
             d="M5.00003 23C5.35031 21.5825 5.99994 21.0001 6.5 21.5C7.00003 22 6.41751 22.6497 5.00003 23Z"
           />
         </svg>
-        <a class="header-logo-name">EXALLENGE</a>
+        <router-link class="header-logo-name" to="/">EXALLENGE</router-link>
       </div>
       <div class="nav-btn" v-on:click="toggleMenu">
         <label for="nav-check">
@@ -30,18 +30,18 @@
       </div>
       <ul class="main-nav">
         <li>
-          <a href="/courses/">Курсы</a>
+          <router-link to="/courses">Курсы</router-link>
         </li>
         <li>
-          <a href="/reviews/">Отзывы</a>
+          <router-link to="/reviews">Отзывы</router-link>
         </li>
         <li>
-          <a href="/feedback/">Написать нам</a>
+          <router-link to="/feedback">Написать нам</router-link>
         </li>
       </ul>
       <template v-if="user.loggedIn">
         <li>
-          <a href="/user/">{{user.data.displayName}}</a>
+          <router-link to="/user">{{user.data.displayName}}</router-link>
         </li>
         <li>
           <a @click.prevent="signOut">Выйти</a>
@@ -49,10 +49,10 @@
       </template>
       <template v-else>
         <li>
-          <router-link to="login">Войти</router-link>
+          <router-link to="/login">Войти</router-link>
         </li>
         <li>
-          <router-link to="register">Зарегестрироваться</router-link>
+          <router-link to="/register">Зарегестрироваться</router-link>
         </li>
       </template>
     </div>

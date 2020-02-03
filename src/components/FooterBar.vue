@@ -28,13 +28,13 @@
           <h3>Курсы</h3>
           <ul>
             <li>
-              <a href="#">Школьникам</a>
+              <router-link to="/courses">Школьникам</router-link>
             </li>
             <li>
-              <a href="#">Студентам</a>
+              <router-link to="/courses">Студентам</router-link>
             </li>
             <li>
-              <a href="#">Компаниям</a>
+              <router-link to="/courses">Компаниям</router-link>
             </li>
           </ul>
         </div>
@@ -42,10 +42,10 @@
           <h3>Отзывы</h3>
           <ul>
             <li>
-              <a href="#">Показать</a>
+              <router-link to="/reviews">Показать</router-link>
             </li>
             <li>
-              <a href="#">Оставить</a>
+              <router-link to="/feedback">Оставить</router-link>
             </li>
           </ul>
         </div>
@@ -53,10 +53,10 @@
           <h3>Вакансии</h3>
           <ul>
             <li>
-              <a href="#">Лекторы</a>
+              <router-link to="/in-development">Лекторы</router-link>
             </li>
             <li>
-              <a href="#">Наставники</a>
+              <router-link to="/in-development">Наставники</router-link>
             </li>
           </ul>
         </div>

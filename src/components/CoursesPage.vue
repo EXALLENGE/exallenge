@@ -1,8 +1,7 @@
 <template>
   <div class="popular-and-price">
     <div class="container">
-      <h2 class="section-title">Популярные курсы</h2>
-      <a class="btn to-catalog" href="#" title="Посмотреть все курсы">Все курсы</a>
+      <h2 class="section-title">Курсы</h2>
       <div class="popular-items">
         <div class="catalog-item">
           <h3>
@@ -55,7 +54,6 @@
 .popular-and-price {
   padding-top: 70px;
   padding-bottom: 90px;
-  background-color: #f2f2f2;
 }
 
 .container {
@@ -72,30 +70,6 @@
   margin-bottom: 50px;
   display: flex;
   justify-content: space-between;
-}
-
-.to-catalog {
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  font-size: 18px;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 10px 18px;
-  color: #c0b8ad;
-  border: 2px solid #a69f95;
-  border-radius: 4px;
-}
-
-.to-catalog:hover {
-  color: #7d6038;
-  border: 2px solid #6c5330;
-}
-
-.to-catalog:active {
-  color: #908b85;
-  border: 2px solid #7d7973;
 }
 
 .catalog-item {
@@ -149,6 +123,25 @@
   margin-bottom: 30px;
 }
 
+.section-title {
+  padding-left: 20px;
+}
+
+.popular-items {
+  display: block;
+}
+.catalog-item {
+  width: initial;
+  border: initial;
+}
+.catalog-item h3 {
+  max-width: initial;
+}
+.catalog-item p {
+  font-size: 16px;
+  height: initial;
+}
+
 @media only screen and (max-width: 1050px) {
   .section-title {
     padding-left: 20px;
@@ -170,16 +163,6 @@
   .catalog-item p {
     font-size: 16px;
     height: initial;
-  }
-  .to-catalog {
-    top: 10px;
-    right: 20px;
-  }
-}
-
-@media screen and (max-width: 460px) {
-  .to-catalog {
-    display: none;
   }
 }
 </style>
