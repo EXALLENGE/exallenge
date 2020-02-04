@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import ForgetPassword from "../components/ForgetPassword";
 import CoursesPage from "../components/CoursesPage";
 import ReviewsPage from "../components/ReviewsPage";
 import FeedbackPage from "../components/FeedbackPage";
@@ -23,6 +24,11 @@ const router = new Router({
       path: "/register",
       name: "Register",
       component: Register
+    },
+    {
+      path: "/forget-password",
+      name: "ForgetPassword",
+      component: ForgetPassword
     },
     {
       path: "/",

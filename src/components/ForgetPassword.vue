@@ -2,30 +2,21 @@
   <div>
     <div class="feedback">
       <div class="container">
-        <h2 class="section-title">Войти</h2>
+        <h2 class="section-title">Забыли пароль?</h2>
         <div v-if="error" class="alert alert-danger">{{ error }}</div>
-        <form class="feedback-form" action="#" @submit.prevent="submit">
+        <form class="feedback-form" action="#" @submit.prevent="resetPassword">
           <div class="feedback-form-group">
             <label for="fullname">Электронная почта:</label>
             <input type="email" name="email" id="email" v-model="form.email" />
           </div>
-          <div class="feedback-form-group">
-            <label for="fullname">Пароль:</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              v-model="form.password"
-            />
-          </div>
           <div style="text-align:center">
             <input type="submit" class="btn" value="Отправить" /><br />
-            <div class="reset-password">
-              <router-link to="/forget-password">Забыли пароль?</router-link>
-            </div>
-            <div class="reset-password">
-              <router-link to="/register">Еще не зарегестрированы?</router-link>
-            </div>
+          </div>
+          <div class="reset-password">
+            <router-link to="/login">Вспомнили пароль?</router-link>
+          </div>
+          <div class="reset-password">
+            <router-link to="/register">Еще не зарегестрированы?</router-link>
           </div>
         </form>
       </div>
@@ -157,6 +148,7 @@
 }
 
 .reset-password {
+  text-align: center;
   display: block;
   padding-top: 25px;
   font-size: 20px;
@@ -188,21 +180,30 @@ export default {
   data() {
     return {
       form: {
-        email: "",
-        password: ""
+        email: ""
       },
       error: null,
       isModalVisible: false
     };
   },
   methods: {
-    submit() {
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    resetPassword() {
       let self = this;
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.form.email, this.form.password)
-        .then(() => {
-          this.$router.replace({ name: "CoursesPage" });
+        .sendPasswordResetEmail(this.form.email)
+        .then(function() {
+          self.$store.commit("changeModalText", {
+            title: "Письмо отправлено.",
+            text: "Мы отправили письмо вам на почту, можете поменять пароль."
+          });
+          self.showModal();
         })
         .catch(function() {
           self.$store.commit("changeModalText", {
@@ -211,12 +212,6 @@ export default {
           });
           self.showModal();
         });
-    },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
     }
   }
 };

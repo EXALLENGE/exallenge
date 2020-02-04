@@ -57,7 +57,7 @@
           }}</router-link>
         </li>
         <li>
-          <a @click.prevent="signOut">Выйти</a>
+          <a @click.prevent="signOut" style="cursor: pointer">Выйти</a>
         </li>
       </template>
       <template v-else>
@@ -197,12 +197,13 @@ export default {
   },
   methods: {
     signOut() {
+      this.closeMenu();
       firebase
         .auth()
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: "home"
+            name: "Main"
           });
         });
     },
