@@ -12,7 +12,8 @@ export default new Vuex.Store({
     modal: {
       title: "Возникла ошибка.",
       text: "Мы получили ваше сообщение и в ближайшее время ответим вам."
-    }
+    },
+    courses: []
   },
   getters: {
     user(state) {
@@ -30,6 +31,11 @@ export default new Vuex.Store({
     changeModalText(state, modalText) {
       state.modal.title = modalText.title;
       state.modal.text = modalText.text;
+    },
+    saveCourse(state, course) {
+      let c = {};
+      c[course.id] = course.data;
+      state.courses.push(c);
     }
   },
   actions: {

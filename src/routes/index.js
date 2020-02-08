@@ -7,6 +7,8 @@ import CoursesPage from "../components/CoursesPage";
 import ReviewsPage from "../components/ReviewsPage";
 import FeedbackPage from "../components/FeedbackPage";
 import InDevelopment from "../components/InDevelopment";
+import UserCourses from "../components/UserCourses";
+import UserSettings from "../components/UserSettings";
 import Main from "../components/Main";
 
 Vue.use(Router);
@@ -54,6 +56,16 @@ const router = new Router({
       path: "/in-development",
       name: "InDevelopment",
       component: InDevelopment
+    },
+    {
+      path: "/user/courses",
+      name: "UserCourses",
+      component: UserCourses
+    },
+    {
+      path: "/user/settings",
+      name: "UserSettings",
+      component: UserSettings
     }
   ]
 });

@@ -2,48 +2,16 @@
   <div class="popular-and-price">
     <div class="container">
       <h2 class="section-title">Курсы</h2>
+
       <div class="popular-items">
-        <div class="catalog-item">
-          <h3>
-            Python.
-            <br />Базовый курс
-          </h3>
-          <p>
-            Изучим основы языка, напишем первые программы. Прорешаем более 70
-            практических задач которые проверят наши учителя.
-          </p>
+        <div class="catalog-item" v-for="course in courses" v-bind:key="course">
+          <h3 v-html="course['title']"></h3>
+          <p>{{ course["description"]}}</p>
           <div class="buttons">
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Записаться</a>
-          </div>
-        </div>
-        <div class="catalog-item">
-          <h3>
-            Python.
-            <br />Продвинутый курс
-          </h3>
-          <p>
-            Разберем как основы так и продвинутые темы языка. Разработаем
-            выпускной проект в группах с использованием системы контроля версий.
-          </p>
-          <div class="buttons">
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Записаться</a>
-          </div>
-        </div>
-        <div class="catalog-item">
-          <h3>
-            Golang.
-            <br />Продвинутый курс
-          </h3>
-          <p>
-            Рассмотрим как устроен фронтенд в 2019 году и что нужно знать для
-            того чтобы заниматься разработкой. Реализуем проект с использованием
-            HTML, CSS и JS.
-          </p>
-          <div class="buttons">
-            <a href="#" class="btn btn-info">Описание</a>
-            <a href="#" class="btn btn-buy">Записаться</a>
+            <a :href="course.courseId" class="btn btn-info" v-if="course.price < 1">Описание</a>
+            <a :href="description(course.courseId)" class="btn btn-info" v-else>Описание</a>
+            <a :href="url(course.courseId)" class="btn btn-buy" v-if="course.price < 1">Записаться</a>
+            <a :href="description(course.courseId)" class="btn btn-buy" v-else>Записаться</a>
           </div>
         </div>
       </div>
@@ -179,5 +147,64 @@
 </style>
 
 <script>
-export default {};
+import firebase from "firebase";
+
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    url: function(href) {
+      return "/enroll/" + href;
+    },
+    description: function(href) {
+      return "/description/" + href;
+    }
+  },
+  computed: {
+    courses() {
+      // получение списка курсов
+      let metaInfoCourses = [];
+      for (const course of this.$store.state.courses) {
+        let courseItem = {};
+        courseItem["courseId"] = Object.keys(course)[0];
+        let meta = JSON.parse(course[courseItem["courseId"]]["meta.json"]);
+        courseItem["title"] = meta["course_name"];
+        courseItem["description"] = meta["description"];
+        courseItem["price"] = meta["price"];
+        metaInfoCourses.push(courseItem);
+      }
+
+      // соритрвка (сначала бесплатные)
+      metaInfoCourses.sort(function(a, b) {
+        if (a["price"] < b["price"]) return -1;
+        if (a["price"] > b["price"]) return 1;
+        return 0;
+      });
+      return metaInfoCourses;
+    }
+  },
+  beforeCreate: function() {
+    let self = this;
+    const db = firebase.firestore();
+    if (this.$store.state.courses.length > 0) {
+      return;
+    }
+    var citiesRef = db.collection("courses");
+    citiesRef
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          console.log(doc.id, "=>", doc.data()); // eslint-disable-line no-console
+          self.$store.commit("saveCourse", {
+            id: doc.id,
+            data: doc.data()
+          });
+        });
+      })
+      .catch(err => {
+        alert("Error getting documents", err);
+      });
+  }
+};
 </script>
