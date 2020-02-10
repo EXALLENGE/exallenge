@@ -1,35 +1,40 @@
 <template>
-  <div class="checkboxes">
-    <label class="container_checkbox">
-      Москва
-      <input type="radio" name="city" />
-      <span class="checkmark"></span>
-    </label>
-    <label class="container_checkbox">
-      Санкт-Петербург
-      <input type="radio" name="city" />
-      <span class="checkmark"></span>
-    </label>
-    <label class="container_checkbox">
-      Рязань
-      <input type="radio" name="city" />
-      <span class="checkmark"></span>
-    </label>
-    <label class="container_checkbox">
-      Краснодар
-      <input type="radio" name="city" />
-      <span class="checkmark"></span>
-    </label>
-    <label class="container_checkbox">
-      Казань
-      <input type="radio" name="city" />
-      <span class="checkmark"></span>
-    </label>
-    <label class="container_checkbox">
-      Онлайн-формат
-      <input type="radio" name="city" />
-      <span class="checkmark"></span>
-    </label>
+  <div>
+    <h2>Ваш город</h2>
+    <div class="checkboxes">
+      <label class="container_checkbox">
+        Москва
+        <input type="radio" name="city" />
+        <span class="checkmark"></span>
+      </label>
+      <label class="container_checkbox">
+        Санкт-Петербург
+        <input type="radio" name="city" />
+        <span class="checkmark"></span>
+      </label>
+      <label class="container_checkbox">
+        Рязань
+        <input type="radio" name="city" />
+        <span class="checkmark"></span>
+      </label>
+      <label class="container_checkbox">
+        Краснодар
+        <input type="radio" name="city" />
+        <span class="checkmark"></span>
+      </label>
+      <label class="container_checkbox">
+        Казань
+        <input type="radio" name="city" />
+        <span class="checkmark"></span>
+      </label>
+      <label class="container_checkbox">
+        Онлайн-формат
+        <input type="radio" name="city" />
+        <span class="checkmark"></span>
+      </label>
+    </div>
+    <h2>Ваш номер</h2>
+    <input v-model="value" type="text" @input="acceptNumber" />
   </div>
 </template>
 
@@ -99,8 +104,32 @@
   border-radius: 50%;
   background: #a38b70;
 }
+
+input {
+  box-sizing: border-box;
+  width: 40%;
+  height: 54px;
+  padding: 9px 15px;
+  font: inherit;
+  color: inherit;
+  border: 2px solid #d5d5d5;
+}
 </style>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      value: ""
+    };
+  },
+  methods: {
+    acceptNumber() {
+      this.value = this.value
+        .replace(/[^0-9]/g, "")
+        .slice(0, 11)
+        .replace(/(\d{1,1})(\d{1,3})(\d{1,3})(\d{1,4})/, "$1 ($2) $3-$4");
+    }
+  }
+};
 </script>
