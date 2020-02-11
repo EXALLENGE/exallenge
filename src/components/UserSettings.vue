@@ -1,9 +1,9 @@
 <template>
   <div class="settings">
     <div class="container">
-      <UserInfo></UserInfo>
-      <UserTabs></UserTabs>
-      <SelectCity style="padding-top: 30px;"></SelectCity>
+      <UserInfo style="padding-left: 15px;"></UserInfo>
+      <UserTabs style="padding-left: 30px;"></UserTabs>
+      <UserInputs style="padding-top: 30px; padding-left: 30px;"></UserInputs>
     </div>
   </div>
 </template>
@@ -19,18 +19,24 @@
   width: 1000px;
   margin: 0 auto;
 }
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    width: initial;
+  }
+}
 </style>
 
 <script>
 import UserInfo from "./UserInfo";
 import UserTabs from "./UserTabs";
-import SelectCity from "./SelectCity";
+import UserInputs from "./UserInputs";
 
 export default {
   components: {
     UserInfo,
     UserTabs,
-    SelectCity
+    UserInputs
   }
 };
 </script>

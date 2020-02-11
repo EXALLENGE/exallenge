@@ -8,6 +8,17 @@
 </template>
 
 <style scoped>
+.section-title {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+@media screen and (max-width: 400px) {
+  .section-title {
+    margin-right: 0px;
+    width: initial;
+  }
+}
 </style>
 
 <script>

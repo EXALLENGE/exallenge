@@ -1,8 +1,8 @@
 <template>
   <div class="settings">
     <div class="container">
-      <UserInfo></UserInfo>
-      <UserTabs></UserTabs>
+      <UserInfo style="padding-left: 15px;"></UserInfo>
+      <UserTabs style="padding-left: 30px;"></UserTabs>
       <div class="courses">
         <h2>У вас еще нет курсов</h2>
         <p>
@@ -27,11 +27,18 @@
 }
 
 .courses {
+  padding-left: 30px;
   padding-top: 30px;
 }
 a {
   color: #a38b70;
   text-decoration: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  .container {
+    width: initial;
+  }
 }
 </style>
 

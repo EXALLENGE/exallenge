@@ -19,12 +19,7 @@
             d="M5.00003 23C5.35031 21.5825 5.99994 21.0001 6.5 21.5C7.00003 22 6.41751 22.6497 5.00003 23Z"
           />
         </svg>
-        <router-link
-          class="header-logo-name"
-          to="/"
-          v-on:click.native="closeMenu()"
-          >EXALLENGE</router-link
-        >
+        <router-link class="header-logo-name" to="/" v-on:click.native="closeMenu()">EXALLENGE</router-link>
       </div>
       <div class="nav-btn" v-on:click="toggleMenu">
         <label for="nav-check">
@@ -35,26 +30,22 @@
       </div>
       <ul class="main-nav">
         <li>
-          <router-link to="/courses" v-on:click.native="toggleMenu()"
-            >Курсы</router-link
-          >
+          <router-link to="/courses" v-on:click.native="toggleMenu()">Курсы</router-link>
         </li>
         <li>
-          <router-link to="/reviews" v-on:click.native="toggleMenu()"
-            >Отзывы</router-link
-          >
+          <router-link to="/reviews" v-on:click.native="toggleMenu()">Отзывы</router-link>
         </li>
         <li>
-          <router-link to="/feedback" v-on:click.native="toggleMenu()"
-            >Написать нам</router-link
-          >
+          <router-link to="/feedback" v-on:click.native="toggleMenu()">Написать нам</router-link>
         </li>
       </ul>
       <template v-if="user.loggedIn">
         <li>
-          <router-link to="/user" v-on:click.native="toggleMenu()">{{
+          <router-link to="/user/courses" v-on:click.native="toggleMenu()">
+            {{
             user.data.displayName
-          }}</router-link>
+            }}
+          </router-link>
         </li>
         <li>
           <a @click.prevent="signOut" style="cursor: pointer">Выйти</a>
@@ -62,14 +53,10 @@
       </template>
       <template v-else>
         <li>
-          <router-link to="/login" v-on:click.native="toggleMenu()"
-            >Войти</router-link
-          >
+          <router-link to="/login" v-on:click.native="toggleMenu()">Войти</router-link>
         </li>
         <li>
-          <router-link to="/register" v-on:click.native="toggleMenu()"
-            >Зарегестрироваться</router-link
-          >
+          <router-link to="/register" v-on:click.native="toggleMenu()">Зарегестрироваться</router-link>
         </li>
       </template>
     </div>
