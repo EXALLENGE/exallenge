@@ -11,15 +11,11 @@
           </div>
           <div class="feedback-form-group">
             <label for="fullname">Пароль:</label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              v-model="form.password"
-            />
+            <input type="password" name="password" id="password" v-model="form.password" />
           </div>
           <div style="text-align:center">
-            <input type="submit" class="btn" value="Отправить" /><br />
+            <input type="submit" class="btn" value="Отправить" />
+            <br />
             <div class="reset-password">
               <router-link to="/forget-password">Забыли пароль?</router-link>
             </div>
@@ -202,6 +198,15 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(() => {
+          if (!self.$store.state.user.data.emailVerified) {
+            self.$store.commit("changeModalText", {
+              title: "Подтвердите письмо.",
+              text:
+                "Подтвердите пожалуйста почту, чтобы начать пользоваться сервисом!"
+            });
+            self.showModal();
+            return;
+          }
           this.$router.replace({ name: "CoursesPage" });
         })
         .catch(function() {

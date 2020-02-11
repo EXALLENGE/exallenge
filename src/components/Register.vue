@@ -228,6 +228,10 @@ export default {
               self.showModal();
             });
           data.user.sendEmailVerification().then(function() {
+            firebase
+              .auth()
+              .signOut()
+              .then(() => {});
             self.$store.commit("changeModalText", {
               title: "Письмо отправлено.",
               text:
