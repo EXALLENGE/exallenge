@@ -194,6 +194,7 @@ export default {
   methods: {
     submit() {
       let self = this;
+      console.log(123); // eslint-disable-line no-console
       firebase
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)

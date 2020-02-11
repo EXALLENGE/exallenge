@@ -49,6 +49,11 @@ export default {
   components: {
     UserInfo,
     UserTabs
+  },
+  beforeCreate: function() {
+    if (!this.$store.state.user.loggedIn) {
+      this.$router.push({ path: "/login" });
+    }
   }
 };
 </script>
