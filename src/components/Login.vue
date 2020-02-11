@@ -199,15 +199,6 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(() => {
-          if (!self.$store.state.user.data.emailVerified) {
-            self.$store.commit("changeModalText", {
-              title: "Подтвердите письмо.",
-              text:
-                "Подтвердите пожалуйста почту, чтобы начать пользоваться сервисом!"
-            });
-            self.showModal();
-            return;
-          }
           this.$router.replace({ name: "CoursesPage" });
         })
         .catch(function() {
