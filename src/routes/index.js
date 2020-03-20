@@ -10,6 +10,7 @@ import InDevelopment from "../components/InDevelopment";
 import UserCourses from "../components/UserCourses";
 import UserSettings from "../components/UserSettings";
 import DescriptionCourse from "../components/DescriptionCourse";
+import Sql from "../components/Sql";
 import Main from "../components/Main";
 
 Vue.use(Router);
@@ -71,6 +72,10 @@ const router = new Router({
     {
       path: "/description/:course",
       component: DescriptionCourse
+    },
+    {
+      path: "/sql",
+      component: Sql
     }
   ]
 });
