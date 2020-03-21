@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.4.3",
     "firebase": "^7.6.1",
+    "sql": "^0.78.0",
     "sql.js": "^1.2.1",
     "vue": "^2.6.10",
     "vue-particles": "^1.0.9",
@@ -37,7 +38,10 @@
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
-    }
+    },
+    "globals": {
+      "initSqlJs": true
+  }
   },
   "browserslist": [
     "> 1%",

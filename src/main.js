@@ -1,5 +1,6 @@
 import Vue from "vue";
-import VueParticles from "vue-particles";
+import VueResource from 'vue-resource'
+
 import App from "./App.vue";
 import * as firebase from "firebase";
 import store from "./store";
@@ -30,4 +31,4 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
-Vue.use(VueParticles);
+Vue.use(VueResource)

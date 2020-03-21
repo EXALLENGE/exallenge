@@ -1,18 +1,6 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h1>Number of row : {{ lengthOfValues }}</h1>
-    <li v-for="row in getValues" :key="row[1]">{{ row[0] }} / {{ row[1] }}</li>
-    <br />
-    <h2>github.com</h2>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/skysign/vuejs-sqljs-boilerplate"
-          target="_blank"
-        >vuejs-sqljs-boilerplate</a>
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -35,41 +23,47 @@ a {
 </style>
 
 <script>
-import SQL from "sql.js";
 
 export default {
   data() {
     return {
-      msg: "Welcome to Vue.js sql.js boilerplate"
+      msg: "Welcome to Vue.js sql.js boilerplate",
+      db: "",
     };
   },
 
-  created: function() {
-    //console.log("begin created HelloWorld");
-    this.$store.dispatch("getDBFile", { self: this });
-    //console.log("end created HelloWorld");
-  },
-
-  computed: {
-    lengthOfValues: function() {
-      return this.$store.state.values.length;
-    },
-    getValues: function() {
-      return this.$store.state.values;
-    }
-  },
-
   methods: {
-    DBFileIsLoaded: function() {
-      //console.log("begin DBFileIsLoaded");
-      this.$store.state.db = new SQL.Database(this.$store.state.dbFile);
-      let sql = "select * from mytable";
-      let rlt = this.$store.state.db.exec(sql);
-      this.$store.state.values = rlt[0].values;
+  },
 
-      //console.log(rlt);
-      //console.log("end DBFileIsLoaded");
-    }
+  beforeCreate: function() {
+    let config = {
+      locateFile: (filename, prefix) => {
+        console.log(`prefix is : ${prefix}`); // eslint-disable-line no-console
+        return `https://sql-js.github.io/sql.js/dist/sql-wasm-debug.wasm`;
+      }
   }
-};
+  let self = this;
+  // The `initSqlJs` function is globally provided by all of the main dist files if loaded in the browser.
+  // We must specify this locateFile function if we are loading a wasm file from anywhere other than the current html page's folder.
+  initSqlJs(config).then(function (SQL) {
+    //Create the database
+    self.db = new SQL.Database();
+    // Run a query without reading the results
+    self.db.run("CREATE TABLE test (col1, col2);");
+    // Insert two rows: (1,111) and (2,222)
+    self.db.run("INSERT INTO test VALUES (?,?), (?,?)", [1, 111, 2, 222]);
+
+    // Prepare a statement
+    var stmt = self.db.prepare("SELECT * FROM test WHERE col1 BETWEEN $start AND $end");
+    stmt.getAsObject({ $start: 1, $end: 1 }); // {col1:1, col2:111}
+
+    // Bind new values
+    stmt.bind({ $start: 1, $end: 2 });
+    while (stmt.step()) { //
+      var row = stmt.getAsObject();
+      console.log('Here is a row: ' + JSON.stringify(row));  // eslint-disable-line no-console
+    }
+  });
+  }
+}
 </script>
