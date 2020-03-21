@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h1>Number of row : {{ lengthOfValues }}</h1>
-    <ul v-for="row in getValues">{{ row[0] }} / {{ row[1] }}</ul>
+    <li v-for="row in getValues" :key="row[1]">{{ row[0] }} / {{ row[1] }}</li>
     <br />
     <h2>github.com</h2>
     <ul>
@@ -45,9 +45,9 @@ export default {
   },
 
   created: function() {
-    console.log("begin created HelloWorld");
+    //console.log("begin created HelloWorld");
     this.$store.dispatch("getDBFile", { self: this });
-    console.log("end created HelloWorld");
+    //console.log("end created HelloWorld");
   },
 
   computed: {
@@ -61,14 +61,14 @@ export default {
 
   methods: {
     DBFileIsLoaded: function() {
-      console.log("begin DBFileIsLoaded");
+      //console.log("begin DBFileIsLoaded");
       this.$store.state.db = new SQL.Database(this.$store.state.dbFile);
       let sql = "select * from mytable";
       let rlt = this.$store.state.db.exec(sql);
       this.$store.state.values = rlt[0].values;
 
-      console.log(rlt);
-      console.log("end DBFileIsLoaded");
+      //console.log(rlt);
+      //console.log("end DBFileIsLoaded");
     }
   }
 };
