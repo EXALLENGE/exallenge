@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <TextEditor />
+    <TextEditor :submit="submit" :theme="theme" :lang="lang" />
   </div>
 </template>
 
@@ -33,12 +32,17 @@ export default {
   
   data() {
     return {
-      msg: "Welcome to Vue.js sql.js boilerplate",
       db: "",
+      // TODO: get that values from vuex store 
+      theme: "base16-light",
+      lang: "text/x-python"
     };
   },
 
   methods: {
+    submit(res) {
+      console.log(res); // eslint-disable-line no-console
+    }
   },
 
   beforeCreate: function() {
