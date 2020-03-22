@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <TextEditor />
   </div>
 </template>
 
@@ -23,8 +24,13 @@ a {
 </style>
 
 <script>
+import TextEditor from "./TextEditor";
 
 export default {
+  components: {
+    TextEditor,
+  },
+  
   data() {
     return {
       msg: "Welcome to Vue.js sql.js boilerplate",
