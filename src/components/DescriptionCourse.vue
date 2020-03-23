@@ -90,10 +90,11 @@ export default {
   beforeCreate: function() {
     if (!this.$store.state.user.loggedIn) {
       this.$router.push({ path: "/login" });
+      return
     }
     let self = this;
     const db = firebase.firestore();
-    var course = db.collection("courses").doc(self.$route.params.course);
+    let course = db.collection("coursesContent").doc(self.$route.params.course);
     course
       .get()
       .then(doc => {

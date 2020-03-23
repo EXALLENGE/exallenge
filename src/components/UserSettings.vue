@@ -28,6 +28,8 @@
 </style>
 
 <script>
+import firebase from "firebase";
+
 import UserInfo from "./UserInfo";
 import UserTabs from "./UserTabs";
 import UserInputs from "./UserInputs";
@@ -39,9 +41,13 @@ export default {
     UserInputs
   },
   beforeCreate: function() {
-    if (!this.$store.state.user.loggedIn) {
-      this.$router.push({ path: "/login" });
-    }
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.dispatch("fetchUser", user);
+      if (!this.$store.state.user.loggedIn) {
+        this.$router.push({ path: "/login" });
+        return;
+      }
+    });
   }
 };
 </script>

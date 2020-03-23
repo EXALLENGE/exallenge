@@ -190,7 +190,7 @@ export default {
     if (this.$store.state.courses.length > 0) {
       return;
     }
-    var citiesRef = db.collection("courses");
+    var citiesRef = db.collection("coursesInfo");
     citiesRef
       .get()
       .then(snapshot => {

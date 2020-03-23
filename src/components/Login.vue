@@ -215,6 +215,15 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     }
+  },
+  beforeCreate: function() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.dispatch("fetchUser", user);
+      if (this.$store.state.user.loggedIn) {
+        this.$router.push({ path: "/user/courses" });
+        return;
+      }
+    });
   }
 };
 </script>

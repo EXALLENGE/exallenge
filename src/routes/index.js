@@ -10,6 +10,7 @@ import InDevelopment from "../components/InDevelopment";
 import UserCourses from "../components/UserCourses";
 import UserSettings from "../components/UserSettings";
 import DescriptionCourse from "../components/DescriptionCourse";
+import EnrollCourse from "../components/EnrollCourse";
 import Sql from "../components/Sql";
 import Main from "../components/Main";
 
@@ -72,6 +73,11 @@ const router = new Router({
     {
       path: "/description/:course",
       component: DescriptionCourse
+    },
+    {
+      path: "/enroll/:course",
+      name: "Enroll",
+      component: EnrollCourse
     },
     {
       path: "/sql",

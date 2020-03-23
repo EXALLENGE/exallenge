@@ -9,7 +9,7 @@
 
 .text-editor {
   border-radius: 15px;
-  font-size: 22px;
+  font-size: 18px;
   width: 1200px;
 }
 
