@@ -34,6 +34,8 @@ import UserInfo from "./UserInfo";
 import UserTabs from "./UserTabs";
 import UserInputs from "./UserInputs";
 
+import { getUserInfo, checkRouter } from "../utils/getUserInfo";
+
 export default {
   components: {
     UserInfo,
@@ -41,12 +43,10 @@ export default {
     UserInputs
   },
   beforeCreate: function() {
+    getUserInfo();
     firebase.auth().onAuthStateChanged(user => {
       this.$store.dispatch("fetchUser", user);
-      if (!this.$store.state.user.loggedIn) {
-        this.$router.push({ path: "/login" });
-        return;
-      }
+      checkRouter();
     });
   }
 };

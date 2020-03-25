@@ -198,5 +198,17 @@
 </style>
 
 <script>
-export default {};
+import firebase from "firebase";
+
+import { getUserInfo, checkRouter } from "../utils/getUserInfo";
+
+export default {
+  beforeCreate: function() {
+    getUserInfo();
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.dispatch("fetchUser", user);
+      checkRouter();
+    });
+  }
+};
 </script>

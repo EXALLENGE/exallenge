@@ -9,7 +9,7 @@
 import firebase from "firebase";
 import { mapGetters } from "vuex";
 
-import getUserInfo from "../utils/getUserInfo";
+import {getUserInfo, checkRouter } from "../utils/getUserInfo";
 
 export default {
   computed: {
@@ -33,11 +33,7 @@ export default {
     getUserInfo();
     firebase.auth().onAuthStateChanged(user => {
       this.$store.dispatch("fetchUser", user);
-      console.log(this.$store.state.user.loggedIn); // eslint-disable-line no-console
-      if (!this.$store.state.user.loggedIn) {
-        this.$router.push({ path: "/login" });
-        return;
-      }
+      checkRouter();
       let self = this;
       const db = firebase.firestore();
       let course = db

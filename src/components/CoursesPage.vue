@@ -149,7 +149,7 @@
 <script>
 import firebase from "firebase";
 
-import getUserInfo from "../utils/getUserInfo";
+import { getUserInfo, checkRouter } from "../utils/getUserInfo";
 
 export default {
   data() {
@@ -188,6 +188,10 @@ export default {
   },
   beforeCreate: function() {
     getUserInfo();
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.dispatch("fetchUser", user);
+      checkRouter();
+    });
     let self = this;
     const db = firebase.firestore();
     if (this.$store.state.courses.length > 0) {

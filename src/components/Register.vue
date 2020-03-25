@@ -191,6 +191,8 @@
 import firebase from "firebase";
 import modal from "./Modal";
 
+import {getUserInfo, checkRouter } from "../utils/getUserInfo";
+
 export default {
   components: {
     modal
@@ -254,6 +256,13 @@ export default {
     closeModal() {
       this.isModalVisible = false;
     }
+  },
+  beforeCreate: function() {
+    getUserInfo()
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.dispatch("fetchUser", user);
+      checkRouter();
+    });
   }
 };
 </script>

@@ -177,6 +177,8 @@ import firebase from "firebase";
 
 import modal from "./Modal";
 
+import {getUserInfo, checkRouter } from "../utils/getUserInfo";
+
 export default {
   components: {
     modal
@@ -194,7 +196,6 @@ export default {
   methods: {
     submit() {
       let self = this;
-      console.log(123); // eslint-disable-line no-console
       firebase
         .auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
@@ -217,12 +218,10 @@ export default {
     }
   },
   beforeCreate: function() {
+    getUserInfo()
     firebase.auth().onAuthStateChanged(user => {
       this.$store.dispatch("fetchUser", user);
-      if (this.$store.state.user.loggedIn) {
-        this.$router.push({ path: "/user/courses" });
-        return;
-      }
+      checkRouter();
     });
   }
 };

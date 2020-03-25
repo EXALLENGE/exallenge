@@ -10,7 +10,8 @@
             <input type="email" name="email" id="email" v-model="form.email" />
           </div>
           <div style="text-align:center">
-            <input type="submit" class="btn" value="Отправить" /><br />
+            <input type="submit" class="btn" value="Отправить" />
+            <br />
           </div>
           <div class="reset-password">
             <router-link to="/login">Вспомнили пароль?</router-link>
@@ -173,6 +174,8 @@ import firebase from "firebase";
 
 import modal from "./Modal";
 
+import { getUserInfo, checkRouter } from "../utils/getUserInfo";
+
 export default {
   components: {
     modal
@@ -213,6 +216,13 @@ export default {
           self.showModal();
         });
     }
+  },
+  beforeCreate: function() {
+    getUserInfo();
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.dispatch("fetchUser", user);
+      checkRouter();
+    });
   }
 };
 </script>
