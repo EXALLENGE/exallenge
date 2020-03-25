@@ -13,12 +13,16 @@
 </style>
 
 <script>
+import firebase from "firebase";
+
 import Promo from "./Promo";
 import Features from "./Features";
 import PressReview from "./PressReview";
 import Reviews from "./Reviews";
 import Courses from "./Courses";
 import Feedback from "./Feedback";
+
+import { getUserInfo, checkRouter } from "../utils/getUserInfo";
 
 export default {
   components: {
@@ -28,6 +32,13 @@ export default {
     Reviews,
     Courses,
     Feedback
+  },
+  beforeCreate: function() {
+    getUserInfo();
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.dispatch("fetchUser", user);
+      checkRouter();
+    });
   }
 };
 </script>
