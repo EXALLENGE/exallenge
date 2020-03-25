@@ -11,6 +11,7 @@ import UserCourses from "../components/UserCourses";
 import UserSettings from "../components/UserSettings";
 import DescriptionCourse from "../components/DescriptionCourse";
 import EnrollCourse from "../components/EnrollCourse";
+import Task from "../components/Task";
 import Sql from "../components/Sql";
 import Main from "../components/Main";
 
@@ -61,6 +62,11 @@ const router = new Router({
       component: InDevelopment
     },
     {
+      path: "/description/:course",
+      name: "DescriptionCourse",
+      component: DescriptionCourse
+    },
+    {
       path: "/user/courses",
       name: "UserCourses",
       component: UserCourses
@@ -71,13 +77,14 @@ const router = new Router({
       component: UserSettings
     },
     {
-      path: "/description/:course",
-      component: DescriptionCourse
-    },
-    {
       path: "/enroll/:course",
       name: "Enroll",
       component: EnrollCourse
+    },
+    {
+      path: "/course/:course/:task",
+      name: "Task",
+      component: Task
     },
     {
       path: "/sql",
@@ -85,5 +92,6 @@ const router = new Router({
     }
   ]
 });
+
 
 export default router;

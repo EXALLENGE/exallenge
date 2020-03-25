@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {
+      getDataFromFirebase: false,
       loggedIn: false,
       data: null
     },
@@ -23,6 +24,7 @@ export default new Vuex.Store({
   mutations: {
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value;
+      state.user.getDataFromFirebase = true;
     },
     SET_USER(state, data) {
       state.user.data = data;
@@ -36,6 +38,19 @@ export default new Vuex.Store({
       let c = {};
       c[course.id] = course.data;
       state.courses.push(c);
+    },
+    updateCourseInfo(state, course) {
+      if (course in state.user.courses){
+        state.user.courses[course] += 1 
+      }
+      else {
+        state.user.courses[course] = 0
+      }
+    },
+    saveUserInfo(state, userInfo){
+      for (const userInfoItem in userInfo){
+        state.user[userInfoItem] = userInfo[userInfoItem];
+      }
     }
   },
   actions: {

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import VueResource from 'vue-resource'
+import VueResource from "vue-resource";
 
 import App from "./App.vue";
 import * as firebase from "firebase";
@@ -21,9 +21,6 @@ let configOptions = {
 
 firebase.initializeApp(configOptions);
 
-firebase.auth().onAuthStateChanged(user => {
-  store.dispatch("fetchUser", user);
-});
 
 new Vue({
   router,
@@ -31,4 +28,4 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
-Vue.use(VueResource)
+Vue.use(VueResource);

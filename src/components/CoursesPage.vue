@@ -149,6 +149,8 @@
 <script>
 import firebase from "firebase";
 
+import getUserInfo from "../utils/getUserInfo";
+
 export default {
   data() {
     return {};
@@ -185,13 +187,14 @@ export default {
     }
   },
   beforeCreate: function() {
+    getUserInfo();
     let self = this;
     const db = firebase.firestore();
     if (this.$store.state.courses.length > 0) {
       return;
     }
-    var citiesRef = db.collection("coursesInfo");
-    citiesRef
+    let coursesInfo = db.collection("coursesInfo");
+    coursesInfo
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
