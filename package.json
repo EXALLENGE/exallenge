@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "deploy": "npm run build && firebase deploy",
-    "save": "git add . && git commit -m \"fix\" && git psuh origin HEAD"
+    "save": "git add . && git commit -m \"fix\" && git push origin HEAD"
   },
   "dependencies": {
     "core-js": "^3.4.3",
