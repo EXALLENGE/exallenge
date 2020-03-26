@@ -8,7 +8,8 @@ export default new Vuex.Store({
     user: {
       getDataFromFirebase: false,
       loggedIn: false,
-      data: null
+      data: null,
+      courses: {}
     },
     modal: {
       title: "Возникла ошибка.",

@@ -8,10 +8,13 @@
           <h3 v-html="course['title']"></h3>
           <p>{{ course["description"]}}</p>
           <div class="buttons">
-            <a :href="course.courseId" class="btn btn-info" v-if="course.price < 1">Описание</a>
-            <a :href="description(course.courseId)" class="btn btn-info" v-else>Описание</a>
-            <a :href="url(course.courseId)" class="btn btn-buy" v-if="course.price < 1">Записаться</a>
-            <a :href="description(course.courseId)" class="btn btn-buy" v-else>Записаться</a>
+            <a :href="description(course.courseId)" class="btn btn-info">Описание</a>
+            <a
+              :href="enrollOrContinue(course.courseId)"
+              class="btn btn-buy"
+              v-if="join(course.courseId)"
+            >Присоединиться</a>
+            <a :href="enrollOrContinue(course.courseId)" class="btn btn-buy" v-else>Продолжить</a>
           </div>
         </div>
       </div>
@@ -156,11 +159,21 @@ export default {
     return {};
   },
   methods: {
-    url: function(href) {
-      return "/enroll/" + href;
+    join: function(href) {
+      if (!(href in this.$store.state.user.courses)) {
+        return true;
+      }
+      return false;
     },
     description: function(href) {
       return "/description/" + href;
+    },
+    enrollOrContinue: function(href) {
+      if (this.join(href)) {
+        return "/enroll/" + href;
+      }
+      console.log(this.$store.state.user.courses[href]); // eslint-disable-line no-console
+      return `/course/${href}/${this.$store.state.user.courses[href]}`;
     }
   },
   computed: {
@@ -202,7 +215,6 @@ export default {
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
-          console.log(doc.id, "=>", doc.data()); // eslint-disable-line no-console
           self.$store.commit("saveCourse", {
             id: doc.id,
             data: doc.data()
