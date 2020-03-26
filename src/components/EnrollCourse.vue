@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <CourseContent />
-  </div>
+  <div></div>
 </template>
 
 <style scoped>
@@ -9,38 +7,46 @@
 
 <script>
 import firebase from "firebase";
-import { mapGetters } from "vuex";
-
-import CourseContent from "./CourseContent";
 
 import { getUserInfo, checkRouter } from "../utils/getUserInfo";
 
 export default {
-  components: {
-    CourseContent
-  },
-  computed: {
-    ...mapGetters({
-      // map `this.user` to `this.$store.getters.user`
-      user: "user"
-    })
-  },
-
   beforeCreate: function() {
     getUserInfo();
     firebase.auth().onAuthStateChanged(user => {
       this.$store.dispatch("fetchUser", user);
       checkRouter();
-      let users = firebase
+      firebase
         .firestore()
-        .collection("users")
-        .doc(user.email);
-      users
-        .set({ courses: { [this.$route.params.course]: 0 } }, { merge: true })
-        .then(() => {
-          console.log("Записали пользователя на курс"); // eslint-disable-line no-console
+        .collection("coursesContent")
+        .doc(this.$route.params.course)
+        .get()
+        .then(doc => {
+          let data = doc.data();
+          let price = parseInt(JSON.parse(data["meta.json"]).price);
+          if (price > 0) {
+            this.$router.push({
+              path: `/enroll-with-message/${this.$route.params.course}`
+            });
+            return;
+          } else {
+            firebase
+              .firestore()
+              .collection("users")
+              .doc(user.email)
+              .set(
+                { courses: { [this.$route.params.course]: 0 } },
+                { merge: true }
+              )
+              .then(() => {
+                console.log("Записали пользователя на курс"); // eslint-disable-line no-console
+              });
+            this.$store.commit("updateCourseInfo", this.$route.params.course);
+            this.$router.push({
+              path: `/description/${this.$route.params.course}`
+            });
+          }
         });
-      self.$store.commit("updateCourseInfo", this.$route.params.course);
     });
   }
 };

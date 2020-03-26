@@ -11,6 +11,7 @@ import UserCourses from "../components/UserCourses";
 import UserSettings from "../components/UserSettings";
 import DescriptionCourse from "../components/DescriptionCourse";
 import EnrollCourse from "../components/EnrollCourse";
+import EnrollWithMessage from "../components/EnrollWithMessage";
 import Task from "../components/Task";
 import Sql from "../components/Sql";
 import Main from "../components/Main";
@@ -80,6 +81,11 @@ const router = new Router({
       path: "/enroll/:course",
       name: "Enroll",
       component: EnrollCourse
+    },
+    {
+      path: "/enroll-with-message/:course",
+      name: "EnrollWithMessage",
+      component: EnrollWithMessage
     },
     {
       path: "/course/:course/:task",

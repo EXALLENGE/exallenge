@@ -4,7 +4,7 @@ import router from "../routes";
 
 export function checkRouter() {
   let authRoutes = ["Login", "Register", "ForgetPassword"];
-  let lmsRoutes = ["UserCourses", "UserSettings", "Enroll", "Task"];
+  let lmsRoutes = ["UserCourses", "UserSettings", "Enroll", "EnrollWithMessage", "Task"];
   if (
     authRoutes.includes(router.currentRoute.name) &&
     store.state.user.loggedIn

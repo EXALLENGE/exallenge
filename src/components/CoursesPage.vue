@@ -5,16 +5,20 @@
 
       <div class="popular-items">
         <div class="catalog-item" v-for="course in courses" v-bind:key="course">
-          <h3 v-html="course['title']"></h3>
-          <p>{{ course["description"]}}</p>
+          <h3 v-html="course.title"></h3>
+          <p>{{ course.description}}</p>
           <div class="buttons">
             <a :href="description(course.courseId)" class="btn btn-info">Описание</a>
             <a
-              :href="enrollOrContinue(course.courseId)"
+              :href="enrollOrContinue(course.courseId, course.price)"
               class="btn btn-buy"
               v-if="join(course.courseId)"
             >Присоединиться</a>
-            <a :href="enrollOrContinue(course.courseId)" class="btn btn-buy" v-else>Продолжить</a>
+            <a
+              :href="enrollOrContinue(course.courseId, course.price)"
+              class="btn btn-buy"
+              v-else
+            >Продолжить</a>
           </div>
         </div>
       </div>
@@ -156,7 +160,9 @@ import { getUserInfo, checkRouter } from "../utils/getUserInfo";
 
 export default {
   data() {
-    return {};
+    return {
+      courses: []
+    };
   },
   methods: {
     join: function(href) {
@@ -168,35 +174,14 @@ export default {
     description: function(href) {
       return "/description/" + href;
     },
-    enrollOrContinue: function(href) {
+    enrollOrContinue: function(href, price) {
       if (this.join(href)) {
-        return "/enroll/" + href;
+        if (price == 0) {
+          return "/enroll/" + href;
+        }
+        return "/enroll-with-message/" + href;
       }
-      console.log(this.$store.state.user.courses[href]); // eslint-disable-line no-console
       return `/course/${href}/${this.$store.state.user.courses[href]}`;
-    }
-  },
-  computed: {
-    courses() {
-      // получение списка курсов
-      let metaInfoCourses = [];
-      for (const course of this.$store.state.courses) {
-        let courseItem = {};
-        courseItem["courseId"] = Object.keys(course)[0];
-        let meta = JSON.parse(course[courseItem["courseId"]]["meta.json"]);
-        courseItem["title"] = meta["course_name"];
-        courseItem["description"] = meta["description"];
-        courseItem["price"] = meta["price"];
-        metaInfoCourses.push(courseItem);
-      }
-
-      // соритрвка (сначала бесплатные)
-      metaInfoCourses.sort(function(a, b) {
-        if (a["price"] < b["price"]) return -1;
-        if (a["price"] > b["price"]) return 1;
-        return 0;
-      });
-      return metaInfoCourses;
     }
   },
   beforeCreate: function() {
@@ -214,12 +199,26 @@ export default {
     coursesInfo
       .get()
       .then(snapshot => {
+        let courses = [];
         snapshot.forEach(doc => {
+          let courseItem = {};
+          let meta = JSON.parse(doc.data()["meta.json"]);
+          courseItem["courseId"] = doc.id;
+          courseItem["title"] = meta["course_name"];
+          courseItem["description"] = meta["description"];
+          courseItem["price"] = meta["price"];
+          courses.push(courseItem);
           self.$store.commit("saveCourse", {
             id: doc.id,
             data: doc.data()
           });
         });
+        courses.sort(function(a, b) {
+          if (a["price"] < b["price"]) return -1;
+          if (a["price"] > b["price"]) return 1;
+          return 0;
+        });
+        this.courses = courses;
       })
       .catch(err => {
         alert("Error getting documents", err);

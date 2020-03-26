@@ -3,8 +3,12 @@
     <div class="container">
       <h2 class="section-title" v-html="course['course_name']"></h2>
       <p>{{ course["description"]}}</p>
+      <p>
+        Мы проводим этот курс в онлайн и в офлайн форматах. Пожалуйста, уточните информацию
+        о себе в
+        <router-link to="/user/settings">настройках</router-link>. Мы свяжемся с вам в ближайшее время.
+      </p>
     </div>
-    <p>{{user}}</p>
     <p>{{course}}</p>
   </div>
 </template>
@@ -83,25 +87,26 @@ export default {
   computed: {
     ...mapGetters({
       user: "user"
-    })
+    }),
   },
+
   beforeCreate: function() {
     getUserInfo();
     firebase.auth().onAuthStateChanged(user => {
       this.$store.dispatch("fetchUser", user);
       checkRouter();
+      firebase
+        .firestore()
+        .collection("coursesContent")
+        .doc(this.$route.params.course)
+        .get()
+        .then(doc => {
+          this.course = doc.data();
+        })
+        .catch(err => {
+          alert("Error getting documents", err);
+        });
     });
-    firebase
-      .firestore()
-      .collection("coursesContent")
-      .doc(this.$route.params.course)
-      .get()
-      .then(doc => {
-        this.course = doc.data();
-      })
-      .catch(err => {
-        alert("Error getting documents", err);
-      });
   }
 };
 </script>

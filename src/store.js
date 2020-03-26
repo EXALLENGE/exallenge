@@ -15,7 +15,7 @@ export default new Vuex.Store({
       title: "Возникла ошибка.",
       text: "Мы получили ваше сообщение и в ближайшее время ответим вам."
     },
-    courses: []
+    courses: {}
   },
   getters: {
     user(state) {
@@ -36,9 +36,7 @@ export default new Vuex.Store({
       state.modal.text = modalText.text;
     },
     saveCourse(state, course) {
-      let c = {};
-      c[course.id] = course.data;
-      state.courses.push(c);
+      state.courses[course.id] = course.data;
     },
     updateCourseInfo(state, course) {
       if (course in state.user.courses){
