@@ -12,6 +12,8 @@
   "dependencies": {
     "core-js": "^3.4.3",
     "firebase": "^7.6.1",
+    "markdown-it": "^10.0.0",
+    "showdown": "^1.9.1",
     "sql": "^0.78.0",
     "sql.js": "^1.2.1",
     "vue": "^2.6.10",
