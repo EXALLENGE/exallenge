@@ -23,7 +23,7 @@ export default {
         .get()
         .then(doc => {
           let data = doc.data();
-          let price = parseInt(JSON.parse(data["meta.json"]).price);
+          let price = parseInt(data.meta.price);
           if (price > 0) {
             this.$router.push({
               path: `/enroll-with-message/${this.$route.params.course}`

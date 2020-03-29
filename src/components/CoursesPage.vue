@@ -202,7 +202,7 @@ export default {
         let courses = [];
         snapshot.forEach(doc => {
           let courseItem = {};
-          let meta = JSON.parse(doc.data()["meta.json"]);
+          let meta = doc.data()["meta"];
           courseItem["courseId"] = doc.id;
           courseItem["title"] = meta["course_name"];
           courseItem["description"] = meta["description"];

@@ -1,55 +1,60 @@
 <template>
-  <div>{{course}}</div>
+  <div>
+    <ul v-for="chapter in course.chapters" :key="chapter.chapter_name">
+      <li class="chapter-title">{{chapter.chapter_name}}</li>
+      <ul v-for="chapteritem in chapter.chapterItems" :key="chapteritem.title">
+        <li class="chapter-item" v-bind:class="{ finished: chapteritem.finished }">
+          <a :href="generateUrl(course, chapteritem)">{{chapteritem.title}}</a>
+        </li>
+      </ul>
+    </ul>
+  </div>
 </template>
 
 <style scoped>
+.chapter-title {
+  font-size: 22px;
+}
+
+.chapter-item {
+  font-size: 20px;
+  line-height: 28px;
+}
+ul {
+  list-style: none;
+}
+
+ul li::before {
+  content: "\2022";
+  color: black;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+ul li.finished::before {
+  color: #30b58b;
+}
+
+ul li.finished a {
+  color: #30b58b;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
 </style>
 
 <script>
-import firebase from "firebase";
-
-import { mapGetters } from "vuex";
-
 export default {
-  computed: {
-    ...mapGetters({
-      // map `this.user` to `this.$store.getters.user`
-      user: "user"
-    }),
-    course() {
-      for (const course of this.$store.state.courses) {
-        console.log(this.$route.params.course); // eslint-disable-line no-console
-        let courseId = Object.keys(course)[0];
-        if (courseId === this.$route.params.course) {
-          return course[courseId];
-        }
-      }
-      return {};
+  props: ["course"],
+  methods: {
+    generateUrl(course, chapteritem) {
+      console.log(`${course.chapter_name}/${chapteritem.title}`) // eslint-disable-line no-console
+      return `/course/${course.courseId}/${chapteritem.taskNum}`
     }
-  },
-  beforeCreate: function() {
-    let self = this;
-    const db = firebase.firestore();
-    let course = db.collection("coursesContent").doc(this.$route.params.course);
-    course
-      .get()
-      .then(doc => {
-        let data = doc.data();
-        let price = parseInt(JSON.parse(data["meta.json"]).price);
-        if (price > 0) {
-          this.$router.push({
-            path: `/description${this.$route.params.course}`
-          });
-          return;
-        }
-        self.$store.commit("saveCourse", {
-          id: doc.id,
-          data: data
-        });
-      })
-      .catch(err => {
-        alert("Error getting documents", err);
-      });
   }
 };
 </script>
