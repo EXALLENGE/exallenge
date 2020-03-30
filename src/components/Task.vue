@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="container markdown-body" v-html="this.courseInfo"></div>
+    <div class="task">
+        <Exercise :task="task"></Exercise>
+    </div>
   </div>
 </template>
 
 <style scoped>
-
 .markdown-body {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
 .container {
@@ -1004,20 +1006,15 @@
   margin: 0 0.2em 0.25em -1.6em;
   vertical-align: middle;
 }
-
-.markdown-body pre {
-  padding: 0.2em 0.4em;
-  margin: 0;
-  font-size: 85%;
-  background-color: rgba(27, 31, 35, 0.05);
-  border-radius: 3px;
-}
 </style>
 
 <script>
 import firebase from "firebase";
 
+import Exercise from "./Exercise";
+
 export default {
+  components: {Exercise},
   data() {
     return {
       task: {}
