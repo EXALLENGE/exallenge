@@ -1,20 +1,21 @@
-import Vue from "vue";
+import Vue  from "vue";
 import Router from "vue-router";
-import Login from "../components/Login";
-import Register from "../components/Register";
-import ForgetPassword from "../components/ForgetPassword";
-import CoursesPage from "../components/CoursesPage";
-import ReviewsPage from "../components/ReviewsPage";
-import FeedbackPage from "../components/FeedbackPage";
-import InDevelopment from "../components/InDevelopment";
-import UserCourses from "../components/UserCourses";
-import UserSettings from "../components/UserSettings";
-import DescriptionCourse from "../components/DescriptionCourse";
-import EnrollCourse from "../components/EnrollCourse";
-import EnrollWithMessage from "../components/EnrollWithMessage";
-import Task from "../components/Task";
-import Sql from "../components/Sql";
-import Main from "../components/Main";
+const Login = () => import("../components/Login");
+const Register = () => import("../components/Register");
+const ForgetPassword = () => import("../components/ForgetPassword");
+const CoursesPage = () => import("../components/CoursesPage");
+const ReviewsPage = () => import("../components/ReviewsPage");
+const FeedbackPage = () => import("../components/FeedbackPage");
+const InDevelopment = () => import("../components/InDevelopment");
+const UserCourses = () => import("../components/UserCourses");
+const UserSettings = () => import("../components/UserSettings");
+const DescriptionCourse = () => import("../components/DescriptionCourse");
+const EnrollCourse = () => import("../components/EnrollCourse");
+const EnrollWithMessage = () => import("../components/EnrollWithMessage");
+const Task = () => import("../components/Task");
+const Sql = () => import("../components/Sql.vue");
+
+const Main = () => import("../components/Main.vue");
 
 Vue.use(Router);
 

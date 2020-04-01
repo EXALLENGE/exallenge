@@ -89,3 +89,28 @@ export function convertCourseResponseStruncture(course, user, courseFromRoute) {
   }
   return {};
 }
+
+export function updateUserStatus() {
+  console.log(router.currentRoute.params.task); // eslint-disable-line no-console
+  if (
+    store.state.user.courses[router.currentRoute.params.course] ==
+    router.currentRoute.params.task
+  ) {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(store.state.user.data.email)
+      .set(
+        {
+          courses: {
+            [router.currentRoute.params.course]:
+              parseInt(router.currentRoute.params.task) + 1
+          }
+        },
+        { merge: true }
+      )
+      .then(() => {
+        console.log("Пропустили пользователя дальше"); // eslint-disable-line no-console
+      });
+  }
+}

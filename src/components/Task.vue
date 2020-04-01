@@ -2,21 +2,31 @@
   <div>
     <div class="container markdown-body" v-html="this.courseInfo"></div>
     <div class="task">
-        <Exercise :task="task"></Exercise>
+      <Exercise :task="task"></Exercise>
     </div>
   </div>
 </template>
 
 <style scoped>
+.task {
+  margin-bottom: 60px;
+}
+
 .markdown-body {
   padding-top: 70px;
-  padding-bottom: 70px;
+  padding-bottom: 10px;
 }
 
 .container {
   width: 1000px;
   margin: 0 auto;
   position: relative;
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    width: initial;
+  }
 }
 
 .markdown-body .octicon {
@@ -1014,7 +1024,7 @@ import firebase from "firebase";
 import Exercise from "./Exercise";
 
 export default {
-  components: {Exercise},
+  components: { Exercise },
   data() {
     return {
       task: {}
@@ -1026,6 +1036,9 @@ export default {
         return this.task.theory;
       }
       return "";
+    },
+    url() {
+      return this.$router.params.task;
     }
   },
   methods: {
@@ -1044,6 +1057,42 @@ export default {
           path: `/courses`
         });
       }
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.task = {};
+      console.log(to); // eslint-disable-line no-console
+      console.log(from); // eslint-disable-line no-console
+      firebase.auth().onAuthStateChanged(user => {
+        this.$store.dispatch("fetchUser", user);
+        if (user) {
+          const db = firebase.firestore();
+          db.collection("users")
+            .doc(user.email)
+            .get()
+            .then(doc => {
+              const userInfo = doc.data();
+              this.$store.commit("saveUserInfo", userInfo);
+              this.checkUserEnrolled(userInfo.courses);
+              this.checkUserReached(userInfo.courses);
+              firebase
+                .firestore()
+                .collection("courses")
+                .doc(this.$route.params.course)
+                .collection("items")
+                .doc(this.$route.params.task)
+                .get()
+                .then(doc => {
+                  this.task = doc.data();
+                });
+            });
+        } else {
+          this.$router.push({
+            path: `/courses`
+          });
+        }
+      });
     }
   },
   beforeCreate: function() {
