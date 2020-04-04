@@ -53,14 +53,22 @@ import "codemirror/lib/codemirror.css";
 // theme css
 import "codemirror/theme/base16-light.css";
 
+import { updateUserStatus } from "../utils/getUserInfo";
+
 export default {
+  props: ["task", "resolveExercise"],
   components: {
     codemirror
   },
   data() {
     return {
+      userRunCode: true,
       terminalValue: "",
       code: "",
+      serverInput: [],
+      serverOutput: [],
+      userOutput: [],
+      finishedWithError: false,
       cmOptions: {
         tabSize: 4,
         mode: "text/x-python",
@@ -73,7 +81,13 @@ export default {
   },
   methods: {
     printCode: function(text) {
-      this.terminalValue += `${text}`;
+      if (this.userRunCode) {
+        this.terminalValue += `${text}`;
+      } else {
+        if (text != "\n") {
+          this.userOutput.push(text);
+        }
+      }
     },
     inputCode: function(message) {
       return new Promise(resolve => {
@@ -93,6 +107,7 @@ export default {
       return Sk.builtinFiles["files"][x];
     },
     runCode: function() {
+      this.userRunCode = true;
       let self = this;
       self.terminalValue = "";
       var runUserCode = Sk.misceval.asyncToPromise(function() {
@@ -108,15 +123,62 @@ export default {
         }
       );
     },
-    submitCode: function() {
-      return ""
+    submitCode: async function() {
+      this.userRunCode = false;
+      this.finishedWithError = false;
+      let self = this;
+      self.terminalValue = "";
+      const taskTestsCopy = { ...this.task };
+      for (const taskTestCopy in taskTestsCopy.test_cases) {
+        console.log(taskTestCopy); // eslint-disable-line no-console
+        let taskCase = taskTestsCopy.test_cases[taskTestCopy];
+        this.serverInput = taskCase.input;
+        this.serverOutput = taskCase.output;
+        this.userOutput = [];
+        var runUserCode = Sk.misceval.asyncToPromise(function() {
+          return Sk.importMainWithBody("<stdin>", false, self.code, true);
+        });
+        runUserCode.then(
+          function(mod) {
+            console.log(mod); // eslint-disable-line no-console
+            if (
+              JSON.stringify(self.serverOutput) !=
+              JSON.stringify(self.userOutput)
+            ) {
+              self.terminalValue += `${taskTestCopy} - error \n`;
+              self.terminalValue += `Логическая ошибка \n`;
+              console.log("logic err"); // eslint-disable-line no-console
+              self.finishedWithError = true;
+            } else {
+              self.terminalValue += `${taskTestCopy} - pass \n`;
+            }
+          },
+          function(err) {
+            self.terminalValue += `${taskTestCopy} - error \n`;
+            self.terminalValue += `${err.toString()} \n`;
+            self.finishedWithError = true;
+            console.log(err.toString()); // eslint-disable-line no-console
+          }
+        );
+        await new Promise(r => setTimeout(r, 20));
+        if (self.finishedWithError) return;
+      }
+      self.terminalValue += `================================ \n`;
+      self.terminalValue += `Поздравляем! \n`;
+      self.terminalValue += `Вы выполнили упражнение и можете двигаться дальше.\nНажмите кнопку "Далее", чтобы продолжить \n`;
+      // обновит статус пользователя, если он делает это упражнение в первый раз
+      updateUserStatus();
+      // показывает кнопку продолжить
+      this.resolveExercise();
+      console.log("OK"); // eslint-disable-line no-console
+      return "";
     }
   },
   beforeCreate: async function() {
     const plugin0 = document.createElement("script");
     plugin0.setAttribute("src", "/skulpt.js");
     document.head.appendChild(plugin0);
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 200));
     console.log(Sk); // eslint-disable-line no-console
 
     Sk.configure({

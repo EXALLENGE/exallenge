@@ -31,7 +31,7 @@
 import { updateUserStatus } from "../utils/getUserInfo";
 
 export default {
-  props: ["meta", "resolveExercise"],
+  props: ["task", "resolveExercise"],
   created: function() {
     console.log(this); // eslint-disable-line no-console
     // обновит статус пользователя, если он делает это упражнение в первый раз

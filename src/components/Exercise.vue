@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div v-if="this.metaInTask">
-      <NoExercise v-if="this.taskType ==='NT'" :meta="this.task.meta" :resolveExercise="resolveExercise"></NoExercise>
-      <OpenAnswerExercise v-if="this.taskType ==='OT'" :meta="this.task.meta"></OpenAnswerExercise>
-      <PythonExercise v-if="this.taskType ==='PT'" :meta="this.task.meta"></PythonExercise>
-      <SqlExercise v-if="this.taskType ==='ST'" :meta="this.task.meta"></SqlExercise>
+      <NoExercise v-if="this.taskType ==='NT'" :task="this.task" :resolveExercise="resolveExercise"></NoExercise>
+      <OpenAnswerExercise v-if="this.taskType ==='OT'" :task="this.task"></OpenAnswerExercise>
+      <PythonExercise v-if="this.taskType ==='PT'" :task="this.task" :resolveExercise="resolveExercise"></PythonExercise>
+      <SqlExercise v-if="this.taskType ==='ST'" :task="this.task"></SqlExercise>
       <button v-if="this.showNextTaskLink" class="submit-btn" v-on:click="nextTask">Продолжить</button>
     </div>
   </div>
