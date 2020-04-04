@@ -45,7 +45,8 @@
       "parser": "babel-eslint"
     },
     "globals": {
-      "initSqlJs": true
+      "initSqlJs": true,
+      "Sk": true
     }
   },
   "browserslist": [

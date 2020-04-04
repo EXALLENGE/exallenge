@@ -25,6 +25,8 @@
 
 @media only screen and (max-width: 1200px) {
   .container {
+    padding-left: 10px;
+    padding-right: 10px;
     width: initial;
   }
 }
