@@ -178,7 +178,7 @@ export default {
     const plugin0 = document.createElement("script");
     plugin0.setAttribute("src", "/skulpt.js");
     document.head.appendChild(plugin0);
-    await new Promise(r => setTimeout(r, 200));
+    await new Promise(r => setTimeout(r, 100));
     console.log(Sk); // eslint-disable-line no-console
 
     Sk.configure({
