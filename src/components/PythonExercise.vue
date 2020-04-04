@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     printCode: function(text) {
-      this.terminalValue += `\n${text}\n`;
+      this.terminalValue += `${text}`;
     },
     inputCode: function(message) {
       return new Promise(resolve => {
@@ -91,6 +91,25 @@ export default {
       )
         throw "File not found: '" + x + "'";
       return Sk.builtinFiles["files"][x];
+    },
+    runCode: function() {
+      let self = this;
+      self.terminalValue = "";
+      var runUserCode = Sk.misceval.asyncToPromise(function() {
+        return Sk.importMainWithBody("<stdin>", false, self.code, true);
+      });
+      runUserCode.then(
+        function(mod) {
+          console.log(mod); // eslint-disable-line no-console
+        },
+        function(err) {
+          self.terminalValue = err.toString();
+          console.log(err.toString()); // eslint-disable-line no-console
+        }
+      );
+    },
+    submitCode: function() {
+      return ""
     }
   },
   beforeCreate: async function() {
@@ -100,40 +119,13 @@ export default {
     await new Promise(r => setTimeout(r, 400));
     console.log(Sk); // eslint-disable-line no-console
 
-    function yourFunction(promptMessage) {
-      console.log(promptMessage); // eslint-disable-line no-console
-      return new Promise((resolve, reject) => {
-        console.log(promptMessage); // eslint-disable-line no-console
-        console.log(reject); // eslint-disable-line no-console
-        // ToDo: output prompt
-        // ToDo: get input string
-        let input = prompt(promptMessage);
-        resolve(input);
-      });
-    }
     Sk.configure({
-      inputfun: yourFunction,
+      inputfun: this.inputCode,
       inputfunTakesPrompt: true,
       /* then you need to output the prompt yourself */
       output: this.printCode,
       read: this.builtinRead
     });
-    var myPromise = Sk.misceval.asyncToPromise(function() {
-      return Sk.importMainWithBody(
-        "<stdin>",
-        false,
-        "print(12)",
-        true
-      );
-    });
-    myPromise.then(
-      function(mod) {
-        console.log(mod); // eslint-disable-line no-console
-      },
-      function(err) {
-        console.log(err.toString()); // eslint-disable-line no-console
-      }
-    );
   }
 };
 </script>
