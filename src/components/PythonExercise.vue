@@ -85,7 +85,7 @@ export default {
         this.terminalValue += `${text}`;
       } else {
         if (text != "\n") {
-          this.userOutput.push(text);
+          this.userOutput.push(text.replace("\n", ""));
         }
       }
     },
@@ -94,7 +94,12 @@ export default {
         console.log(message); // eslint-disable-line no-console
         // ToDo: output prompt
         // ToDo: get input string
-        let input = prompt(message);
+        let input = "";
+        if (this.userRunCode) {
+          input = prompt(message);
+        } else {
+          input = this.serverInput.shift();
+        }
         resolve(input);
       });
     },
@@ -132,8 +137,8 @@ export default {
       for (const taskTestCopy in taskTestsCopy.test_cases) {
         console.log(taskTestCopy); // eslint-disable-line no-console
         let taskCase = taskTestsCopy.test_cases[taskTestCopy];
-        this.serverInput = taskCase.input;
-        this.serverOutput = taskCase.output;
+        this.serverInput = [...taskCase.input];
+        this.serverOutput = [...taskCase.output];
         this.userOutput = [];
         var runUserCode = Sk.misceval.asyncToPromise(function() {
           return Sk.importMainWithBody("<stdin>", false, self.code, true);
@@ -186,7 +191,8 @@ export default {
       inputfunTakesPrompt: true,
       /* then you need to output the prompt yourself */
       output: this.printCode,
-      read: this.builtinRead
+      read: this.builtinRead,
+      __future__: Sk.python3
     });
   }
 };

@@ -1086,7 +1086,13 @@ export default {
                 .doc(this.$route.params.task)
                 .get()
                 .then(doc => {
-                  this.task = doc.data();
+                  const result = doc.data();
+                  if (result === undefined) {
+                    this.$router.push({
+                      path: `/courses`
+                    });
+                  }
+                  this.task = result;
                 });
             });
         } else {
@@ -1118,7 +1124,16 @@ export default {
               .doc(this.$route.params.task)
               .get()
               .then(doc => {
-                this.task = doc.data();
+                const result = doc.data();
+                if (result === undefined) {
+                  this.$router.push({
+                    path: `/courses`
+                  });
+                }
+                this.task = result;
+              })
+              .catch(err => {
+                console.log(err); // eslint-disable-line no-console
               });
           });
       } else {

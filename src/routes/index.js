@@ -1,4 +1,4 @@
-import Vue  from "vue";
+import Vue from "vue";
 import Router from "vue-router";
 const Login = () => import("../components/Login");
 const Register = () => import("../components/Register");
@@ -14,6 +14,7 @@ const EnrollCourse = () => import("../components/EnrollCourse");
 const EnrollWithMessage = () => import("../components/EnrollWithMessage");
 const Task = () => import("../components/Task");
 const Sql = () => import("../components/Sql.vue");
+const Screenshot = () => import("../components/Screenshot.vue");
 
 const Main = () => import("../components/Main.vue");
 
@@ -26,79 +27,82 @@ const router = new Router({
     {
       path: "/login",
       name: "Login",
-      component: Login
+      component: Login,
     },
     {
       path: "/register",
       name: "Register",
-      component: Register
+      component: Register,
     },
     {
       path: "/forget-password",
       name: "ForgetPassword",
-      component: ForgetPassword
+      component: ForgetPassword,
     },
     {
       path: "/",
       name: "Main",
-      component: Main
+      component: Main,
     },
     {
       path: "/courses",
       name: "CoursesPage",
-      component: CoursesPage
+      component: CoursesPage,
     },
     {
       path: "/reviews",
       name: "ReviewsPage",
-      component: ReviewsPage
+      component: ReviewsPage,
     },
     {
       path: "/feedback",
       name: "FeedbackPage",
-      component: FeedbackPage
+      component: FeedbackPage,
     },
     {
       path: "/in-development",
       name: "InDevelopment",
-      component: InDevelopment
+      component: InDevelopment,
     },
     {
       path: "/description/:course",
       name: "DescriptionCourse",
-      component: DescriptionCourse
+      component: DescriptionCourse,
     },
     {
       path: "/user/courses",
       name: "UserCourses",
-      component: UserCourses
+      component: UserCourses,
     },
     {
       path: "/user/settings",
       name: "UserSettings",
-      component: UserSettings
+      component: UserSettings,
     },
     {
       path: "/enroll/:course",
       name: "Enroll",
-      component: EnrollCourse
+      component: EnrollCourse,
     },
     {
       path: "/enroll-with-message/:course",
       name: "EnrollWithMessage",
-      component: EnrollWithMessage
+      component: EnrollWithMessage,
     },
     {
       path: "/course/:course/:task",
       name: "Task",
-      component: Task
+      component: Task,
     },
     {
       path: "/sql",
-      component: Sql
-    }
-  ]
+      component: Sql,
+    },
+    {
+      path: "/screenshot",
+      component: Screenshot,
+    },
+  ],
 });
-
 
 export default router;

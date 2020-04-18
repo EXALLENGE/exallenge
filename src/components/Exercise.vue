@@ -73,6 +73,7 @@ export default {
 
 .submit-btn {
   margin-left: 50px;
+  margin-bottom: 180px;
   font-size: 22px;
   font-weight: 600;
   text-decoration: none;
