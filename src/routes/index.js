@@ -15,6 +15,7 @@ const EnrollWithMessage = () => import("../components/EnrollWithMessage");
 const Task = () => import("../components/Task");
 const Sql = () => import("../components/Sql.vue");
 const Screenshot = () => import("../components/Screenshot.vue");
+const TestExercise = () => import("../components/TestExercise.vue");
 
 const Main = () => import("../components/Main.vue");
 
@@ -102,6 +103,10 @@ const router = new Router({
       path: "/screenshot",
       component: Screenshot,
     },
+    {
+      path: "/tmp",
+      component: TestExercise,
+    }
   ],
 });
 

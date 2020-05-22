@@ -5,6 +5,7 @@
       <OpenAnswerExercise v-if="this.taskType ==='OT'" :task="this.task"></OpenAnswerExercise>
       <PythonExercise v-if="this.taskType ==='PT'" :task="this.task" :resolveExercise="resolveExercise"></PythonExercise>
       <SqlExercise v-if="this.taskType ==='ST'" :task="this.task"></SqlExercise>
+      <TestExercise v-if="this.taskType ==='TT'" :task="this.task" :resolveExercise="resolveExercise"></TestExercise>
       <button v-if="this.showNextTaskLink" class="submit-btn" v-on:click="nextTask">Продолжить</button>
     </div>
   </div>
@@ -15,13 +16,15 @@ import NoExercise from "./NoExercise";
 import OpenAnswerExercise from "./OpenAnswerExercise";
 import PythonExercise from "./PythonExercise";
 import SqlExercise from "./SqlExercise";
+import TestExercise from "./TestExercise";
 
 export default {
   components: {
     NoExercise,
     OpenAnswerExercise,
     PythonExercise,
-    SqlExercise
+    SqlExercise,
+    TestExercise
   },
   props: ["task"],
   data() {
