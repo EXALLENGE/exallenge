@@ -17,7 +17,7 @@ const Sql = () => import("../components/Sql.vue");
 const Screenshot = () => import("../components/Screenshot.vue");
 const TestExercise = () => import("../components/TestExercise.vue");
 
-const Main = () => import("../components/Main.vue");
+// const Main = () => import("../components/Main.vue");
 
 Vue.use(Router);
 
@@ -43,7 +43,7 @@ const router = new Router({
     {
       path: "/",
       name: "Main",
-      component: Main,
+      redirect: "/login",
     },
     {
       path: "/courses",
@@ -106,7 +106,7 @@ const router = new Router({
     {
       path: "/tmp",
       component: TestExercise,
-    }
+    },
   ],
 });
 
