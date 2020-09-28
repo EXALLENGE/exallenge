@@ -20,7 +20,7 @@
               <router-link to="/forget-password">Забыли пароль?</router-link>
             </div>
             <div class="reset-password">
-              <router-link to="/register">Еще не зарегестрированы?</router-link>
+              <router-link to="/register">Еще не зарегистрированы?</router-link>
             </div>
           </div>
         </form>
