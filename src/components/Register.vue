@@ -3,7 +3,7 @@
     <div>
       <div class="feedback">
         <div class="container">
-          <h2 class="section-title">Зарегестрироваться</h2>
+          <h2 class="section-title">Зарегистрироваться</h2>
           <form class="feedback-form" action="#" @submit.prevent="submit">
             <div class="feedback-form-group">
               <label for="fullname">Имя:</label>
