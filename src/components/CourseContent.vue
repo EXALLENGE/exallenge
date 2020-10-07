@@ -7,8 +7,6 @@
 </template>
 
 <style scoped>
-
-
 .chapter-title {
   font-size: 22px;
 }
@@ -17,6 +15,7 @@
   font-size: 20px;
   line-height: 28px;
 }
+
 ul {
   list-style: none;
 }
