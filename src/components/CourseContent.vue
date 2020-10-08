@@ -1,12 +1,7 @@
 <template>
   <div>
     <ul v-for="chapter in course.chapters" :key="chapter.chapter_name">
-      <li class="chapter-title">{{chapter.chapter_name}}</li>
-      <ul v-for="chapteritem in chapter.chapterItems" :key="chapteritem.title">
-        <li class="chapter-item" v-bind:class="{ finished: chapteritem.finished }">
-          <a :href="generateUrl(course, chapteritem)">{{chapteritem.title}}</a>
-        </li>
-      </ul>
+      <CourseContentItem v-bind:chapter=chapter v-bind:course=course />
     </ul>
   </div>
 </template>
@@ -20,6 +15,7 @@
   font-size: 20px;
   line-height: 28px;
 }
+
 ul {
   list-style: none;
 }
@@ -48,13 +44,13 @@ a {
 </style>
 
 <script>
+import CourseContentItem from "./CourseContentItem";
+
 export default {
+  components: {
+    CourseContentItem,
+  },
+
   props: ["course"],
-  methods: {
-    generateUrl(course, chapteritem) {
-      console.log(`${course.chapter_name}/${chapteritem.title}`) // eslint-disable-line no-console
-      return `/course/${course.courseId}/${chapteritem.taskNum}`
-    }
-  }
 };
 </script>
