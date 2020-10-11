@@ -1,14 +1,70 @@
 <template>
   <div>
-    <div class="container markdown-body" v-html="this.courseInfo"></div>
+    <div class="nav-btn" v-on:click="toggleMenu">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>        
+      </label>
+    </div>
+    <svg class="accordion__icon" width="28" height="28" v-on:click="message">
+      <use xlink:href="#icon-plus"></use>
+    </svg>
+    <use xlink:href="#icon-plus">
+      <svg id="icon-plus" viewBox="0 0 16 16">
+        <path
+          d="M14.812 8a.62.62 0 0 1-.62.622h-5.57v5.57a.62.62 0 0 1-.622.62.62.62 0 0 1-.621-.62v-5.57h-5.57a.62.62 0 0 1-.62-.621.606.606 0 0 1 .618-.618h5.569v-5.57a.62.62 0 0 1 .18-.439.599.599 0 0 1 .438-.179.62.62 0 0 1 .622.621l.006 5.563h5.57c.344 0 .62.276.62.621z"
+          fill="currentColor"
+        ></path>
+      </svg>
+    </use>    
+    <div
+      class="container markdown-body"
+      v-html="this.courseInfo"
+      v-bind:class="{ hidden: show }"
+    ></div>
     <div class="task">
-      <Exercise :task="task"></Exercise>
+      <Exercise :task="task" v-bind:class="{ hidden: show }"></Exercise>
     </div>
   </div>
 </template>
 
 <style scoped>
-.task {
+/* Никита: */
+
+.hidden, .nav-btn {
+  display: none;
+}
+
+.accordion__icon {
+  color: #a38b70;
+  margin-left: 1000px;
+}
+
+.nav-btn {
+  display: inline-block;
+  position: absolute;
+  right: 1000px;
+  top: 100px;
+}
+
+.nav-btn > label {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  padding: 13px;
+} 
+
+.nav-btn > label > span {
+  display: block;
+  width: 25px;
+  height: 10px;
+  border-top: 2px solid #505050;
+}
+
+/* Федя: */
+
+.task {  
   margin-bottom: 60px;
 }
 
@@ -1029,7 +1085,20 @@ export default {
   components: { Exercise },
   data() {
     return {
-      task: {"meta":{"task_name":"Введение","taskNum":1,"need_teacher_check":false,"chapterNum":1,"task_type":"NT","need_program_check":false},"theory":"<h1 id=\"\">Введение</h1>\n<h2 id=\"-1\">Зачем изучать командную строку?</h2>\n<p>Мы используем мышь и пальцы, чтобы нажимать на изображения значков и получать доступ к файлам, программам и папкам на наших устройствах. Однако для нас это только один из способов общения с компьютерами.</p>\n<p>Командная строка - это быстрый, мощный текстовый интерфейс, который разработчики используют для более эффективной и действенной связи с компьютерами для выполнения более широкого набора задач. Изучение его использования позволит вам узнать все, на что способен ваш компьютер!</p>\n<h2 id=\"-2\">Навыки которые вы приобритете:</h2>\n<p>К концу курса вы сможете перемещаться, просматривать и изменять файлы и папки на вашем компьютере - и все это без мыши!</p>"}
+      showedMenu: true, // eslint-disable-line no-unused-labels
+      show: false,
+      task: {
+        meta: {
+          task_name: "Введение",
+          taskNum: 1,
+          need_teacher_check: false,
+          chapterNum: 1,
+          task_type: "NT",
+          need_program_check: false,
+        },
+        theory:
+          '<h1 id="">Введение</h1>\n<h2 id="-1">Зачем изучать командную строку?</h2>\n<p>Мы используем мышь и пальцы, чтобы нажимать на изображения значков и получать доступ к файлам, программам и папкам на наших устройствах. Однако для нас это только один из способов общения с компьютерами.</p>\n<p>Командная строка - это быстрый, мощный текстовый интерфейс, который разработчики используют для более эффективной и действенной связи с компьютерами для выполнения более широкого набора задач. Изучение его использования позволит вам узнать все, на что способен ваш компьютер!</p>\n<h2 id="-2">Навыки которые вы приобритете:</h2>\n<p>К концу курса вы сможете перемещаться, просматривать и изменять файлы и папки на вашем компьютере - и все это без мыши!</p>',
+      },
     };
   },
   computed: {
@@ -1041,13 +1110,23 @@ export default {
     },
     url() {
       return this.$router.params.task;
-    }
+    },
   },
   methods: {
+    toggleMenu() {
+      this.showedMenu = !this.showedMenu;
+    },
+    closeMenu() {
+      this.showedMenu = true;
+    },
+    message() {
+      console.log(this.show); // eslint-disable-line no-console
+      this.show = !this.show;
+    },
     checkUserEnrolled(courses) {
       if (!courses.hasOwnProperty(this.$route.params.course)) {
         this.$router.push({
-          path: `/courses`
+          path: `/courses`,
         });
       }
     },
@@ -1056,24 +1135,24 @@ export default {
         parseInt(this.$route.params.task) > courses[this.$route.params.course]
       ) {
         this.$router.push({
-          path: `/courses`
+          path: `/courses`,
         });
       }
-    }
+    },
   },
   watch: {
     $route(to, from) {
       this.task = {};
       console.log(to); // eslint-disable-line no-console
       console.log(from); // eslint-disable-line no-console
-      firebase.auth().onAuthStateChanged(user => {
+      firebase.auth().onAuthStateChanged((user) => {
         this.$store.dispatch("fetchUser", user);
         if (user) {
           const db = firebase.firestore();
           db.collection("users")
             .doc(user.email)
             .get()
-            .then(doc => {
+            .then((doc) => {
               const userInfo = doc.data();
               this.$store.commit("saveUserInfo", userInfo);
               this.checkUserEnrolled(userInfo.courses);
@@ -1085,11 +1164,11 @@ export default {
                 .collection("items")
                 .doc(this.$route.params.task)
                 .get()
-                .then(doc => {
+                .then((doc) => {
                   const result = doc.data();
                   if (result === undefined) {
                     this.$router.push({
-                      path: `/courses`
+                      path: `/courses`,
                     });
                   }
                   this.task = result;
@@ -1097,11 +1176,11 @@ export default {
             });
         } else {
           this.$router.push({
-            path: `/courses`
+            path: `/courses`,
           });
         }
       });
-    }
+    },
   },
   beforeCreate: function() {
     // this.task = {"meta":{"task_name":"Введение","taskNum":1,"need_teacher_check":false,"chapterNum":1,"task_type":"NT","need_program_check":false},"theory":"<h1 id=\"\">Введение</h1>\n<h2 id=\"-1\">Зачем изучать командную строку?</h2>\n<p>Мы используем мышь и пальцы, чтобы нажимать на изображения значков и получать доступ к файлам, программам и папкам на наших устройствах. Однако для нас это только один из способов общения с компьютерами.</p>\n<p>Командная строка - это быстрый, мощный текстовый интерфейс, который разработчики используют для более эффективной и действенной связи с компьютерами для выполнения более широкого набора задач. Изучение его использования позволит вам узнать все, на что способен ваш компьютер!</p>\n<h2 id=\"-2\">Навыки которые вы приобритете:</h2>\n<p>К концу курса вы сможете перемещаться, просматривать и изменять файлы и папки на вашем компьютере - и все это без мыши!</p>"}
@@ -1143,7 +1222,6 @@ export default {
     //     });
     //   }
     // });
-  }
+  },
 };
 </script>
-
