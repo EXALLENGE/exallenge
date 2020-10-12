@@ -1187,45 +1187,44 @@ export default {
     },
   },
   beforeCreate: function() {
-    // this.task = {"meta":{"task_name":"Введение","taskNum":1,"need_teacher_check":false,"chapterNum":1,"task_type":"NT","need_program_check":false},"theory":"<h1 id=\"\">Введение</h1>\n<h2 id=\"-1\">Зачем изучать командную строку?</h2>\n<p>Мы используем мышь и пальцы, чтобы нажимать на изображения значков и получать доступ к файлам, программам и папкам на наших устройствах. Однако для нас это только один из способов общения с компьютерами.</p>\n<p>Командная строка - это быстрый, мощный текстовый интерфейс, который разработчики используют для более эффективной и действенной связи с компьютерами для выполнения более широкого набора задач. Изучение его использования позволит вам узнать все, на что способен ваш компьютер!</p>\n<h2 id=\"-2\">Навыки которые вы приобритете:</h2>\n<p>К концу курса вы сможете перемещаться, просматривать и изменять файлы и папки на вашем компьютере - и все это без мыши!</p>"}
-    // firebase.auth().onAuthStateChanged(user => {
-    //   this.$store.dispatch("fetchUser", user);
-    //   if (user) {
-    //     const db = firebase.firestore();
-    //     db.collection("users")
-    //       .doc(user.email)
-    //       .get()
-    //       .then(doc => {
-    //         const userInfo = doc.data();
-    //         this.$store.commit("saveUserInfo", userInfo);
-    //         this.checkUserEnrolled(userInfo.courses);
-    //         this.checkUserReached(userInfo.courses);
-    //         firebase
-    //           .firestore()
-    //           .collection("courses")
-    //           .doc(this.$route.params.course)
-    //           .collection("items")
-    //           .doc(this.$route.params.task)
-    //           .get()
-    //           .then(doc => {
-    //             const result = doc.data();
-    //             if (result === undefined) {
-    //               this.$router.push({
-    //                 path: `/courses`
-    //               });
-    //             }
-    //             this.task = result;
-    //           })
-    //           .catch(err => {
-    //             console.log(err); // eslint-disable-line no-console
-    //           });
-    //       });
-    //   } else {
-    //     this.$router.push({
-    //       path: `/courses`
-    //     });
-    //   }
-    // });
+    firebase.auth().onAuthStateChanged((user) => {
+      this.$store.dispatch("fetchUser", user);
+      if (user) {
+        const db = firebase.firestore();
+        db.collection("users")
+          .doc(user.email)
+          .get()
+          .then((doc) => {
+            const userInfo = doc.data();
+            this.$store.commit("saveUserInfo", userInfo);
+            this.checkUserEnrolled(userInfo.courses);
+            this.checkUserReached(userInfo.courses);
+            firebase
+              .firestore()
+              .collection("courses")
+              .doc(this.$route.params.course)
+              .collection("items")
+              .doc(this.$route.params.task)
+              .get()
+              .then((doc) => {
+                const result = doc.data();
+                if (result === undefined) {
+                  this.$router.push({
+                    path: `/courses`,
+                  });
+                }
+                this.task = result;
+              })
+              .catch((err) => {
+                console.log(err); // eslint-disable-line no-console
+              });
+          });
+      } else {
+        this.$router.push({
+          path: `/courses`,
+        });
+      }
+    });
   },
 };
 </script>
