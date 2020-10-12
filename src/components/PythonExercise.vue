@@ -9,7 +9,9 @@
       <codemirror v-model="terminalValue" :options="cmOptions" />
     </div>
     <button class="submit-btn" v-on:click="runCode">Выполнить код</button>
-    <button class="submit-btn" v-on:click="submitCode">Отправить задание</button>
+    <button class="submit-btn" v-on:click="submitCode">
+      Отправить задание
+    </button>
   </div>
 </template>
 
@@ -58,7 +60,7 @@ import { updateUserStatus } from "../utils/getUserInfo";
 export default {
   props: ["task", "resolveExercise"],
   components: {
-    codemirror
+    codemirror,
   },
   data() {
     return {
@@ -74,9 +76,9 @@ export default {
         mode: "text/x-python",
         theme: "base16-light",
         lineNumbers: true,
-        line: true
+        line: true,
         // more CodeMirror options...
-      }
+      },
     };
   },
   methods: {
@@ -90,7 +92,7 @@ export default {
       }
     },
     inputCode: function(message) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         console.log(message); // eslint-disable-line no-console
         // ToDo: output prompt
         // ToDo: get input string
@@ -165,7 +167,7 @@ export default {
             console.log(err.toString()); // eslint-disable-line no-console
           }
         );
-        await new Promise(r => setTimeout(r, 20));
+        await new Promise((r) => setTimeout(r, 20));
         if (self.finishedWithError) return;
       }
       self.terminalValue += `================================ \n`;
@@ -177,13 +179,13 @@ export default {
       this.resolveExercise();
       console.log("OK"); // eslint-disable-line no-console
       return "";
-    }
+    },
   },
   beforeCreate: async function() {
     const plugin0 = document.createElement("script");
     plugin0.setAttribute("src", "/skulpt.js");
     document.head.appendChild(plugin0);
-    await new Promise(r => setTimeout(r, 100));
+    await new Promise((r) => setTimeout(r, 1000));
     console.log(Sk); // eslint-disable-line no-console
 
     Sk.configure({
@@ -192,8 +194,8 @@ export default {
       /* then you need to output the prompt yourself */
       output: this.printCode,
       read: this.builtinRead,
-      __future__: Sk.python3
+      __future__: Sk.python3,
     });
-  }
+  },
 };
 </script>

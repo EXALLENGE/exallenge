@@ -1,0 +1,125 @@
+<html>
+  <head>
+    <title>test</title>
+    <link rel="stylesheet" href="codemirror.css" />
+    <script src="codemirror.js"></script>
+    <script src="python.js"></script>
+    <style>
+      .slidecontainer {
+        position: absolute;
+        z-index: 1;
+      }
+      .slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+      .editor {
+        margin-top: 20px;
+      }
+      /* общие правила для всех */
+      .CodeMirror {
+        width: 50%;
+        height: 100vh;
+      }
+      /* первый блок */
+      .CodeMirror:nth-child(2) {
+        width: 50%;
+        height: 100vh;
+      }
+      .main {
+        display: flex;
+        padding-top: 40px;
+      }
+      .results {
+        background: green;
+        width: 20%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slidecontainer">
+      <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+    </div>
+    <div class="main">
+      <textarea id="code" name="code">
+        type here, see a summary of the document b-tree below
+      </textarea>
+      <textarea id="results" name="results">
+        type here, see a summary of the document b-tree below
+      </textarea>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+
+    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyCPnRZJWX2Yr9FpXZjEhlzw66sgi4mMXtg",
+        authDomain: "exallenge.firebaseapp.com",
+        databaseURL: "https://exallenge.firebaseio.com",
+        projectId: "exallenge",
+        storageBucket: "exallenge.appspot.com",
+        messagingSenderId: "183127626486",
+        appId: "1:183127626486:web:8fb4ccfec17a09949b12d7",
+        measurementId: "G-8GBR72WH20",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      firebase
+        .firestore()
+        .collection("c")
+        .doc("SF")
+        .onSnapshot(function(doc) {
+          console.log("Current data: ", doc.data());
+        });
+    </script>
+    <script>
+      let editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        indentUnit: 4,
+        lineWrapping: true,
+        mode: { name: "python", version: 3, singleLineStringErrors: false },
+      });
+
+      let editorResult = CodeMirror.fromTextArea(document.getElementById("results"), {
+        lineNumbers: true,
+        indentUnit: 4,
+        lineWrapping: true,
+      });
+    </script>
+  </body>
+</html>

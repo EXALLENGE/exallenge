@@ -1,5 +1,20 @@
 {
   "projects": {
     "default": "exallenge"
+  },
+  "targets": {
+    "exallenge": {
+      "hosting": {
+        "uploader": [
+          "exallenge-uploader"
+        ],
+        "exallenge": [
+          "exallenge"
+        ],
+        "editor": [
+          "exallenge-editor"
+        ]
+      }
+    }
   }
 }
