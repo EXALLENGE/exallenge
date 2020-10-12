@@ -1,13 +1,19 @@
 <template>
   <div>
-    <div class="nav-btn" v-on:click="toggleMenu">
+    <div class="nav-btn" v-on:click="message" v-bind:class="{ hidden: !show }">
       <label for="nav-check">
         <span></span>
         <span></span>
-        <span></span>        
+        <span></span>
       </label>
     </div>
-    <svg class="accordion__icon" width="28" height="28" v-on:click="message">
+    <svg
+      class="accordion__icon"
+      width="28"
+      height="28"
+      v-on:click="message"
+      v-bind:class="{ hidden: show }"
+    >
       <use xlink:href="#icon-plus"></use>
     </svg>
     <use xlink:href="#icon-plus">
@@ -17,7 +23,7 @@
           fill="currentColor"
         ></path>
       </svg>
-    </use>    
+    </use>
     <div
       class="container markdown-body"
       v-html="this.courseInfo"
@@ -30,21 +36,19 @@
 </template>
 
 <style scoped>
-/* Никита: */
-
-.hidden, .nav-btn {
+.hidden {
   display: none;
 }
 
 .accordion__icon {
   color: #a38b70;
-  margin-left: 1000px;
+  padding-left: 900px;
+  /* display: inline-block; */
 }
 
 .nav-btn {
-  display: inline-block;
   position: absolute;
-  right: 1000px;
+  right: 800px;
   top: 100px;
 }
 
@@ -53,7 +57,7 @@
   width: 50px;
   height: 50px;
   padding: 13px;
-} 
+}
 
 .nav-btn > label > span {
   display: block;
@@ -64,7 +68,7 @@
 
 /* Федя: */
 
-.task {  
+.task {
   margin-bottom: 60px;
 }
 
