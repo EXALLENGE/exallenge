@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- обернуть в родительский div. скрытие одной иконки при нажатии на другую. -->
     <div class="nav-btn" v-on:click="toggleMenu">
       <label for="nav-check">
         <span></span>
@@ -25,8 +24,7 @@
       v-bind:class="{ hidden: show }"
     ></div>
     <div class="task">
-      <!-- использовать отрицание "!" -->
-      <Exercise :task="task" v-bind:class="{ hidden: !show }"></Exercise>
+      <Exercise :task="task" v-bind:class="{ hidden: show }"></Exercise>
     </div>
   </div>
 </template>
@@ -40,15 +38,14 @@
 
 .accordion__icon {
   color: #a38b70;
-  margin-left: 1200px;
-  /* задать положение относитлеьно блока введение */
+  margin-left: 1000px;
 }
 
 .nav-btn {
   display: inline-block;
   position: absolute;
   right: 1000px;
-  top: 100px;  
+  top: 100px;
 }
 
 .nav-btn > label {
