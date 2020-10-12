@@ -25,12 +25,11 @@
       >
         <a :href="generateUrl(course, chapteritem)">{{ chapteritem.title }}</a>
       </li>
-    </ul>  
+    </ul>
   </div>
 </template>
 
 <style scoped>
-
 .hidden {
   display: none;
 }
@@ -42,8 +41,7 @@
 }
 
 .accordion__icon {
- color: #a38b70;
-  
+  color: #a38b70;
 }
 
 .chapter-title {
