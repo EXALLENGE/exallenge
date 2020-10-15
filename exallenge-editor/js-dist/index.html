@@ -106,12 +106,13 @@
     }
     let submit=document.querySelector("#run_button")
     submit.addEventListener("click", function(){
-      console.log("hui")
+
       console.log(editor.getValue())
       let userCode = editor.getValue()
       userCode = userCode.replaceAll("console.log", "consoleInFakeEditor")
+      
+      editorResult.setValue("")
       eval(userCode)
-      userCode
     })
 
 
