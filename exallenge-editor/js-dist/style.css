@@ -1,0 +1,87 @@
+.buttons {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.slidecontainer {
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  width: 60%;
+  right: 20%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+.editor {
+  margin-top: 20px;
+}
+/* общие правила для всех */
+.CodeMirror {
+  width: 50%;
+  height: 100vh;
+}
+/* первый блок */
+.CodeMirror:nth-child(2) {
+  width: 50%;
+  height: 100vh;
+}
+.main {
+  display: flex;
+  padding-top: 40px;
+}
+.results {
+  background: green;
+  width: 20%;
+}
+
+.submit-btn {
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 4px;
+  margin-left: 5px;
+  padding: 9px 5px;
+  background: #fff;
+  color: #30b58b;
+  border: 2px solid #30b58b;
+  border-radius: 4px;
+}
+
+.submit-btn:hover {
+  color: #30b58b;
+  border: 2px solid #30b58b;
+}
+
+.submit-btn:active {
+  color: #30b58b;
+  border: 2px solid #30b58b;
+}
