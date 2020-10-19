@@ -101,8 +101,16 @@
                   document.querySelector("#run_button").click()
               }
       }
+    
     let consoleInFakeEditor = function(obj){
       editorResult.setValue(editorResult.getValue() + String(obj) + "\n")
+    }
+    let ResultsStorage = [];
+    let consoleInResultsStorage = function(obj){
+      ResultsStorage.push(obj);
+    }
+    let promptFromFakeStorage = function(obj){
+      return 17;
     }
     let submit=document.querySelector("#run_button")
     submit.addEventListener("click", function(){
@@ -114,7 +122,16 @@
       editorResult.setValue("")
       eval(userCode)
     })
-
+    let submit1=document.querySelector("#submit_button")
+    submit1.addEventListener("click",function(){
+      let userCode=editor.getValue()
+      userCode = userCode.replaceAll("prompt", "promptFromFakeStorage")
+      userCode = userCode.replaceAll("console.log", "consoleInResultsStorage")
+      ResultsStorage = [];
+      console.log(userCode);
+      eval(userCode)
+      console.log(ResultsStorage);
+    })
 
     </script>
 
