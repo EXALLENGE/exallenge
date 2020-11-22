@@ -1,15 +1,9 @@
 <template>
   <div>
-    <p>Редактор кода</p>
-    <div class="text-editor">
-      <codemirror v-model="code" :options="cmOptions" />
-    </div>
-    <p>Терминал</p>
-    <div class="text-editor">
-      <codemirror v-model="terminalValue" :options="cmOptions" />
-    </div>
     <button class="submit-btn" v-on:click="runCode">Выполнить код</button>
-    <button class="submit-btn" v-on:click="submitCode">Отправить задание</button>
+    <button class="submit-btn" v-on:click="submitCode">
+      Отправить задание
+    </button>
   </div>
 </template>
 
@@ -45,72 +39,12 @@
 </style>
 
 <script>
-import { codemirror } from "vue-codemirror";
-// language
-import "codemirror/mode/python/python.js";
-// base style
-import "codemirror/lib/codemirror.css";
-// theme css
-import "codemirror/theme/base16-light.css";
-
 import { updateUserStatus } from "../utils/getUserInfo";
 
 export default {
   props: ["task", "resolveExercise"],
-  components: {
-    codemirror
-  },
-  data() {
-    return {
-      userRunCode: true,
-      terminalValue: "",
-      code: "",
-      serverInput: [],
-      serverOutput: [],
-      userOutput: [],
-      finishedWithError: false,
-      cmOptions: {
-        tabSize: 4,
-        mode: "text/x-python",
-        theme: "base16-light",
-        lineNumbers: true,
-        line: true
-        // more CodeMirror options...
-      }
-    };
-  },
+  data() {},
   methods: {
-    printCode: function(text) {
-      if (this.userRunCode) {
-        this.terminalValue += `${text}`;
-      } else {
-        if (text != "\n") {
-          this.userOutput.push(text.replace("\n", ""));
-        }
-      }
-    },
-    inputCode: function(message) {
-      return new Promise(resolve => {
-        console.log(message); // eslint-disable-line no-console
-        // ToDo: output prompt
-        // ToDo: get input string
-        let input = "";
-        if (this.userRunCode) {
-          input = prompt(message);
-        } else {
-          input = this.serverInput.shift();
-        }
-        resolve(input);
-      });
-    },
-    builtinRead: function(x) {
-      if (
-        Sk.builtinFiles === undefined ||
-        Sk.builtinFiles["files"][x] === undefined
-      )
-        throw "File not found: '" + x + "'";
-      return Sk.builtinFiles["files"][x];
-    },
     runCode: function() {
       this.userRunCode = true;
       let self = this;
@@ -165,7 +99,7 @@ export default {
             console.log(err.toString()); // eslint-disable-line no-console
           }
         );
-        await new Promise(r => setTimeout(r, 20));
+        await new Promise((r) => setTimeout(r, 20));
         if (self.finishedWithError) return;
       }
       self.terminalValue += `================================ \n`;
@@ -177,23 +111,7 @@ export default {
       this.resolveExercise();
       console.log("OK"); // eslint-disable-line no-console
       return "";
-    }
+    },
   },
-  beforeCreate: async function() {
-    const plugin0 = document.createElement("script");
-    plugin0.setAttribute("src", "/skulpt.js");
-    document.head.appendChild(plugin0);
-    await new Promise(r => setTimeout(r, 100));
-    console.log(Sk); // eslint-disable-line no-console
-
-    Sk.configure({
-      inputfun: this.inputCode,
-      inputfunTakesPrompt: true,
-      /* then you need to output the prompt yourself */
-      output: this.printCode,
-      read: this.builtinRead,
-      __future__: Sk.python3
-    });
-  }
 };
 </script>
