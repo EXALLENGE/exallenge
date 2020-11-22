@@ -1,12 +1,40 @@
 <template>
   <div class="container">
     <div v-if="this.metaInTask">
-      <NoExercise v-if="this.taskType ==='NT'" :task="this.task" :resolveExercise="resolveExercise"></NoExercise>
-      <OpenAnswerExercise v-if="this.taskType ==='OT'" :task="this.task"></OpenAnswerExercise>
-      <PythonExercise v-if="this.taskType ==='PT'" :task="this.task" :resolveExercise="resolveExercise"></PythonExercise>
-      <SqlExercise v-if="this.taskType ==='ST'" :task="this.task"></SqlExercise>
-      <TestExercise v-if="this.taskType ==='TT'" :task="this.task" :resolveExercise="resolveExercise"></TestExercise>
-      <button v-if="this.showNextTaskLink" class="submit-btn" v-on:click="nextTask">Продолжить</button>
+      <NoExercise
+        v-if="this.taskType === 'NT'"
+        :task="this.task"
+        :resolveExercise="resolveExercise"
+      ></NoExercise>
+      <OpenAnswerExercise
+        v-if="this.taskType === 'OT'"
+        :task="this.task"
+      ></OpenAnswerExercise>
+      <PythonExercise
+        v-if="this.taskType === 'PT'"
+        :task="this.task"
+        :resolveExercise="resolveExercise"
+      ></PythonExercise>
+      <SqlExercise
+        v-if="this.taskType === 'ST'"
+        :task="this.task"
+      ></SqlExercise>
+      <VideoExercise
+        v-if="this.taskType === 'VT'"
+        :task="this.task"
+      ></VideoExercise>
+      <TestExercise
+        v-if="this.taskType === 'TT'"
+        :task="this.task"
+        :resolveExercise="resolveExercise"
+      ></TestExercise>
+      <button
+        v-if="this.showNextTaskLink"
+        class="submit-btn"
+        v-on:click="nextTask"
+      >
+        Продолжить
+      </button>
     </div>
   </div>
 </template>
@@ -17,6 +45,7 @@ import OpenAnswerExercise from "./OpenAnswerExercise";
 import PythonExercise from "./PythonExercise";
 import SqlExercise from "./SqlExercise";
 import TestExercise from "./TestExercise";
+import VideoExercise from "./VideoExercise";
 
 export default {
   components: {
@@ -24,12 +53,13 @@ export default {
     OpenAnswerExercise,
     PythonExercise,
     SqlExercise,
-    TestExercise
+    TestExercise,
+    VideoExercise,
   },
   props: ["task"],
   data() {
     return {
-      showNextTaskLink: false
+      showNextTaskLink: false,
     };
   },
   computed: {
@@ -45,19 +75,21 @@ export default {
         return this.task.meta.task_type;
       }
       return "";
-    }
+    },
   },
   methods: {
     nextTask() {
       this.$router.push({
-        path: `/course/${this.$route.params.course}/${parseInt(this.$route.params.task) + 1}`
+        path: `/course/${this.$route.params.course}/${parseInt(
+          this.$route.params.task
+        ) + 1}`,
       });
     },
     resolveExercise() {
-      console.log(`12`) // eslint-disable-line no-console
+      console.log(`12`); // eslint-disable-line no-console
       this.showNextTaskLink = true;
-    }
-  }
+    },
+  },
 };
 </script>
 

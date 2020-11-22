@@ -68,7 +68,7 @@
         </li>
         <li>
           <router-link to="/register" v-on:click.native="toggleMenu()"
-            >Зарегестрироваться</router-link
+            >Зарегистрироваться</router-link
           >
         </li>
       </template>

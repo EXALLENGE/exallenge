@@ -25,32 +25,26 @@
   padding-top: 190px;
   padding-bottom: 90px;
 }
-
 .container {
   width: 1000px;
   margin: 0 auto;
   position: relative;
 }
-
 .section-title {
   padding-left: 20px;
 }
-
 p {
   font-size: 22px;
   padding-left: 20px;
 }
-
 a {
   color: #a38b70;
   text-decoration: none;
 }
-
 .to-all-reviews {
   position: absolute;
   top: 0;
   right: 0;
-
   font-size: 18px;
   font-weight: 600;
   text-decoration: none;
@@ -59,22 +53,18 @@ a {
   border: 2px solid #a69f95;
   border-radius: 4px;
 }
-
 .to-all-reviews:hover {
   color: #7d6038;
   border: 2px solid #6c5330;
 }
-
 .to-all-reviews:active {
   color: #908b85;
   border: 2px solid #7d7973;
 }
-
 @media only screen and (max-width: 1050px) {
   .section-title {
     padding-left: 20px;
   }
-
   .popular-items {
     display: block;
   }
@@ -93,7 +83,6 @@ a {
     height: initial;
   }
 }
-
 @media screen and (max-width: 1020px) {
   .container {
     width: initial;
@@ -105,7 +94,6 @@ a {
     right: 20px;
   }
 }
-
 @media screen and (max-width: 750px) {
   .reviews-list {
     display: block;
@@ -119,7 +107,6 @@ a {
     border-left-color: transparent;
   }
 }
-
 @media screen and (max-width: 420px) {
   .to-all-reviews {
     display: none;
@@ -133,15 +120,12 @@ a {
 <script>
 import firebase from "firebase";
 import { mapGetters } from "vuex";
-
 import CoursesContent from "./CourseContent";
-
 import {
   getUserInfo,
   checkRouter,
   convertCourseResponseStruncture
 } from "../utils/getUserInfo";
-
 export default {
   components: {
     CoursesContent
@@ -155,7 +139,6 @@ export default {
     ...mapGetters({
       user: "user"
     }),
-
     courseInfo() {
       return convertCourseResponseStruncture(
         this.course,
