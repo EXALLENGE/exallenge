@@ -17,7 +17,7 @@ const Sql = () => import("../components/Sql.vue");
 const Screenshot = () => import("../components/Screenshot.vue");
 const TestExercise = () => import("../components/TestExercise.vue");
 
-// const Main = () => import("../components/Main.vue");
+const Main = () => import("../components/Main.vue");
 
 Vue.use(Router);
 
@@ -25,6 +25,11 @@ const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: "/mogrtio",
+      name: "Main",
+      component: Main,
+    },
     {
       path: "/login",
       name: "Login",
