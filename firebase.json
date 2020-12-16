@@ -1,47 +1,49 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "hosting": [
-    {
-      "target": "exallenge",
-      "public": "dist",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+    "database": {
+        "rules": "database.rules.json"
     },
-    {
-      "target": "uploader",
-      "public": "exallenge-uploader/dist",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
     },
-    {
-      "target": "editor",
-      "public": "exallenge-editor/dist",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
+    "hosting": [{
+            "target": "exallenge",
+            "public": "dist",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "rewrites": [{
+                "source": "**",
+                "destination": "/index.html"
+            }]
+        },
         {
-          "source": "**",
-          "destination": "/index.html"
+            "target": "uploader",
+            "public": "exallenge-uploader/dist",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "rewrites": [{
+                "source": "**",
+                "destination": "/index.html"
+            }]
+        },
+        {
+            "target": "editor",
+            "public": "exallenge-editor/dist",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "rewrites": [{
+                "source": "**",
+                "destination": "/index.html"
+            }]
+        },
+        {
+            "target": "video",
+            "public": "exallenge-video/dist",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "rewrites": [{
+                "source": "**",
+                "destination": "/index.html"
+            }]
         }
-      ]
+    ],
+    "storage": {
+        "rules": "storage.rules"
     }
-  ],
-  "storage": {
-    "rules": "storage.rules"
-  }
 }
