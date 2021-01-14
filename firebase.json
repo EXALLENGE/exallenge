@@ -1,49 +1,17 @@
 {
-    "database": {
-        "rules": "database.rules.json"
-    },
-    "firestore": {
-        "rules": "firestore.rules",
-        "indexes": "firestore.indexes.json"
-    },
     "hosting": [{
-            "target": "exallenge",
+            "target": "video-a6642",
             "public": "dist",
-            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ],
             "rewrites": [{
                 "source": "**",
                 "destination": "/index.html"
             }]
         },
-        {
-            "target": "uploader",
-            "public": "exallenge-uploader/dist",
-            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-            "rewrites": [{
-                "source": "**",
-                "destination": "/index.html"
-            }]
-        },
-        {
-            "target": "editor",
-            "public": "exallenge-editor/dist",
-            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-            "rewrites": [{
-                "source": "**",
-                "destination": "/index.html"
-            }]
-        },
-        {
-            "target": "video",
-            "public": "exallenge-video/dist",
-            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-            "rewrites": [{
-                "source": "**",
-                "destination": "/index.html"
-            }]
-        }
-    ],
-    "storage": {
-        "rules": "storage.rules"
-    }
+        { "target": "video-testest", "public": "exallenge-video" }
+    ]
 }

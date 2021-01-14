@@ -9,23 +9,23 @@ import router from "./routes";
 
 Vue.config.productionTip = false;
 
+
 let configOptions = {
-  apiKey: "AIzaSyCPnRZJWX2Yr9FpXZjEhlzw66sgi4mMXtg",
-  authDomain: "exallenge.firebaseapp.com",
-  databaseURL: "https://exallenge.firebaseio.com",
-  projectId: "exallenge",
-  storageBucket: "exallenge.appspot.com",
-  messagingSenderId: "183127626486",
-  appId: "1:183127626486:web:8fb4ccfec17a09949b12d7",
-  measurementId: "G-8GBR72WH20",
+    apiKey: "AIzaSyA_doterJ-JqhgSZrtELtVUgWo_Jtf_9Sc",
+    authDomain: "video-a6642.firebaseapp.com",
+    projectId: "video-a6642",
+    storageBucket: "video-a6642.appspot.com",
+    messagingSenderId: "676052358619",
+    appId: "1:676052358619:web:561215f2c67e4a061643fe",
+    measurementId: "G-0L71LHQR20"
 };
 
 firebase.initializeApp(configOptions);
 
 new Vue({
-  router,
-  store,
-  render: (h) => h(App),
+    router,
+    store,
+    render: (h) => h(App),
 }).$mount("#app");
 
 Vue.use(VueResource);

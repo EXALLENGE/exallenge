@@ -36,7 +36,7 @@
       <ul class="main-nav">
         <li>
           <router-link to="/courses" v-on:click.native="toggleMenu()"
-            >Курсы</router-link
+            >Смотреть</router-link
           >
         </li>
         <li>

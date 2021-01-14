@@ -23,44 +23,6 @@
           <a class="footer-logo-name">EXALLENGE</a>
         </div>
       </div>
-      <div class="footer-middle">
-        <div class="footer-menu">
-          <h3>Курсы</h3>
-          <ul>
-            <li>
-              <router-link to="/courses">Школьникам</router-link>
-            </li>
-            <li>
-              <router-link to="/courses">Студентам</router-link>
-            </li>
-            <li>
-              <router-link to="/courses">Компаниям</router-link>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-menu">
-          <h3>Отзывы</h3>
-          <ul>
-            <li>
-              <router-link to="/reviews">Показать</router-link>
-            </li>
-            <li>
-              <router-link to="/feedback">Оставить</router-link>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-menu">
-          <h3>Вакансии</h3>
-          <ul>
-            <li>
-              <router-link to="/in-development">Лекторы</router-link>
-            </li>
-            <li>
-              <router-link to="/in-development">Наставники</router-link>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
   </div>
 </template>

@@ -1,18 +1,18 @@
 {
   "projects": {
-    "default": "exallenge"
+    "default": "video-a6642"
   },
   "targets": {
-    "exallenge": {
+    "video-a6642": {
       "hosting": {
-        "uploader": [
-          "exallenge-uploader"
+        "video-a6642": [
+          "video-a6642"
         ],
-        "exallenge": [
-          "exallenge"
+        "video-testtest": [
+          "video-testtest"
         ],
-        "editor": [
-          "exallenge-editor"
+        "video-testest": [
+          "video-testest"
         ]
       }
     }
