@@ -1,3 +1,21 @@
+.show_task {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.task {
+  background-color: #fff;
+  border: 2px solid #4caf50;
+  border-radius: 3px;
+  position: absolute;
+  z-index: 10;
+  top: 50px;
+  width: 60%;
+  right: 20%;
+  display: none;
+}
+
 .buttons {
   position: absolute;
   top: 5px;
@@ -56,7 +74,7 @@
 }
 .main {
   display: flex;
-  padding-top: 40px;
+  padding-top: 10px;
 }
 .results {
   background: green;

@@ -1,11 +1,20 @@
 <html>
   <head>
     <title>test</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="codemirror.css" />
     <link rel="stylesheet" href="style.css" />
     <script src="codemirror.js"></script>
+    <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js">
+    </script>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/theme/duotone-light.css">
   </head>
   <body>
+    <input id="show_task" type="submit" class="submit-btn" value="Показать задание">
+    <div class="task">
+    </div>
     <div class="buttons">
       <input id="run_button" type="submit" class="submit-btn" value="Выполнить код" title="Вы можете использовать комбинацию ALT+P для выполнения кода!">
       <input id="submit_button" type="submit" class="submit-btn" value="Отправить задание" title="Вы можете использовать комбинацию ALT+P для выполнения кода!">
@@ -14,7 +23,7 @@
       <input type="range" min="20" max="80" value="50" class="slider" id="myRange">
     </div>
     <div class="main">
-      <textarea id="code" name="code">console.log("hello, world")</textarea>
+      <textarea id="code" name="code"></textarea>
       <textarea id="results" name="results"></textarea>
 
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
@@ -28,6 +37,7 @@
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
+    <script src="app.js"></script>
     <script>
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -64,6 +74,8 @@
           .then(doc => {
             const result = doc.data();
             document.task = result;
+            console.log(document.querySelector(".task"))
+            document.querySelector(".task").innerHTML = result.theory;
           })
           .catch(err => {
             console.log(err); // eslint-disable-line no-console
@@ -72,16 +84,32 @@
         lineNumbers: true,
         indentUnit: 4,
         lineWrapping: true,
-        mode: { name: "python", version: 3, singleLineStringErrors: false },
+        mode: 'javascript',
+        theme: 'duotone-light'
       });
 
       let editorResult = CodeMirror.fromTextArea(document.getElementById("results"), {
         lineNumbers: true,
         indentUnit: 4,
         lineWrapping: true,
+        theme: 'duotone-light'
       });
       document.editor = editor;
       document.editorResult = editorResult;
+
+      const c = localStorage.getItem('code');
+      if (c === null){
+        editor.setValue('console.log("Hello, world!")')
+      }
+      else {
+        editor.setValue(c)
+      }
+      
+
+      editor.on("change",function(cm,change){
+        console.log(cm.getValue());
+        localStorage.setItem('code', cm.getValue());
+      });
 
       let slider = document.getElementById("myRange");
       //let firstCodeEditor = document.querySelector(".CodeMirror:nth-child(2)");
@@ -101,36 +129,96 @@
                   document.querySelector("#run_button").click()
               }
       }
-    
     let consoleInFakeEditor = function(obj){
       editorResult.setValue(editorResult.getValue() + String(obj) + "\n")
     }
+
+    let show_task=document.querySelector("#show_task")
+    show_task.addEventListener("click", function(){
+      if (document.querySelector(".task").style.display !== 'block'){
+        document.querySelector(".task").style.display = 'block';
+      } else {
+        document.querySelector(".task").style.display = 'none';
+      }
+
+    })
+
+
     let ResultsStorage = [];
+    let InputStorage = [];
     let consoleInResultsStorage = function(obj){
-      ResultsStorage.push(obj);
+      ResultsStorage.push(obj.toString());
     }
-    let promptFromFakeStorage = function(obj){
-      return 17;
+    let promptFromFakeStorage = function(){
+      return InputStorage.shift();
     }
+
     let submit=document.querySelector("#run_button")
     submit.addEventListener("click", function(){
 
       console.log(editor.getValue())
       let userCode = editor.getValue()
+      userCode = "'use strict';" + userCode
       userCode = userCode.replaceAll("console.log", "consoleInFakeEditor")
-      
+
       editorResult.setValue("")
-      eval(userCode)
+      try {
+            eval(userCode); 
+        } catch (e) {
+          editorResult.setValue(convertTrase(e.stack))
+          return
+        }
     })
     let submit1=document.querySelector("#submit_button")
     submit1.addEventListener("click",function(){
+      editorResult.setValue("")
       let userCode=editor.getValue()
+      userCode = "'use strict';" + userCode
       userCode = userCode.replaceAll("prompt", "promptFromFakeStorage")
       userCode = userCode.replaceAll("console.log", "consoleInResultsStorage")
-      ResultsStorage = [];
-      console.log(userCode);
-      eval(userCode)
-      console.log(ResultsStorage);
+      let testData = []
+      let result = [];
+      let j = 0;
+      console.log(document.task)
+      document.task.test_data = document.task['test_data.txt'].split('\n')
+      for (let i = 0; i < document.task.test_data.length-1; i++){
+        if (document.task.test_data[i] === '_________________________'){ //Returning true if it's just numbers
+            j = j + 1;
+            testData[j] = [];
+            // testData[j].push(document.task.test_data[i]);
+            result.push(testData[j]);
+        } else {
+            testData[j].push(document.task.test_data[i]);
+        }
+      }
+      for (let i = 0; i < result.length; i++) {
+        let splitIdx = result[i].indexOf('=========================')
+        let inputData = result[i].slice(0, splitIdx);
+        let outputData = result[i].slice(splitIdx+1);
+        InputStorage = inputData;
+        console.log(InputStorage);
+        editorResult.setValue(editorResult.getValue() + "ВХОДНЫЕ ДАННЫЕ: " + "\n")
+        editorResult.setValue(editorResult.getValue() + InputStorage.join("\n") + "\n")
+        ResultsStorage = [];
+        try {
+            eval(userCode); 
+        } catch (e) {
+          editorResult.setValue(e.message)
+          break
+        }
+        editorResult.setValue(editorResult.getValue() + "==================================" + "\n")
+        editorResult.setValue(editorResult.getValue() + "ОЖИДАЕМЫЙ РЕЗУЛЬТАТ: " + "\n")
+        editorResult.setValue(editorResult.getValue() + outputData.join("\n") + "\n")
+        editorResult.setValue(editorResult.getValue() + "ВАШ РЕЗУЛЬТАТ: " + "\n")
+        editorResult.setValue(editorResult.getValue() + ResultsStorage.join("\n") + "\n")
+        console.log(ResultsStorage);
+        console.log(outputData);
+        if (JSON.stringify(ResultsStorage) == JSON.stringify(outputData)){
+          editorResult.setValue(editorResult.getValue() + "OK" + "\n")
+        } else {
+          editorResult.setValue(editorResult.getValue() + "NOT OK" + "\n")
+        }
+      }
     })
 
     </script>
