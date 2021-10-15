@@ -6,3 +6,15 @@ function convertTrase(trase) {
     errMsg += `\nОшибка произошла на строчке ${lineError}`
     return errMsg
 }
+
+function req(){
+    fetch('https://4cd8-178-176-77-218.ngrok.io').then(function(response) {
+        return response.json();
+      }).then(function(data) {
+        console.log(data);
+      }).catch(function() {
+        console.log("Booo");
+      });
+}
+
+req()

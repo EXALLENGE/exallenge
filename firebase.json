@@ -25,6 +25,11 @@
             }]
         },
         {
+            "target": "exallange-editor-js",
+            "public": "exallenge-editor/js-dist",
+            "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+        },
+        {
             "target": "editor",
             "public": "exallenge-editor/dist",
             "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],

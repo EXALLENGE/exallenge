@@ -13,6 +13,9 @@
         ],
         "editor": [
           "exallenge-editor"
+        ],
+        "exallange-editor-js": [
+          "exallange-editor-js"
         ]
       }
     }
