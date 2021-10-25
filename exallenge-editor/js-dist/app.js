@@ -7,8 +7,8 @@ function convertTrase(trase) {
     return errMsg
 }
 
-function req(){
-    fetch('https://4cd8-178-176-77-218.ngrok.io').then(function(response) {
+function taskSuccessSubmit(task){
+    fetch(`https://quiet-stream-57326.herokuapp.com/success-submit/${task}/${localStorage.getItem('telegramID')}`).then(function(response) {
         return response.json();
       }).then(function(data) {
         console.log(data);
@@ -16,5 +16,3 @@ function req(){
         console.log("Booo");
       });
 }
-
-req()
